@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Varia Librorum Customer Registration</title>
+</head>
+<body>
+	<div class="container">
+		<div class="page-header">
+			<h1>Welcome to Varia Librorum</h1>
+		</div>
+		<fieldset>
+			<legend>Customer Registration</legend>
+			<p style="color: red" th:text="${errorMessage}"></p>
+			<form action="#" th:action="@{/user}" th:object="${user}"
+				method="post">
+				<input type="hidden" th:field="*{id}" />
+				<table>
+					<tr>
+						<td>Name</td>
+						<td><input type="text" th:field="*{name}" /></td>
+						<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+					</tr>
+					<tr>
+						<td>E-mail</td>
+						<td><input type="text" th:field="*{email}" /></td>
+						<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">E-mail
+							Error</td>
+					</tr>
+					<tr>
+					</tr>
+					<tr>
+						<td>Password</td>
+						<td><input type="password" th:field="*{password}" /></td>
+						<td th:if="${#fields.hasErrors('password')}"
+							th:errors="*{password}">Password Error</td>
+					</tr>
+					<tr>
+						<td><button type="submit">Register</button></td>
+					</tr>
+				</table>
+			</form>
+		</fieldset>
+	</div>
+</body>
+</html>

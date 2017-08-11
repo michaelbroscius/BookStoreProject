@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript"> 
+	$(document).ready(function () {
+		alert("Document loaded");
+		});
+</script>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Varia Librorum Customer Registration</title>
+<title>Varia Librorum User Management</title>
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<div class="container">
@@ -12,29 +20,27 @@
 			<h1>Welcome to Varia Librorum</h1>
 		</div>
 		<fieldset>
-			<legend>Customer Registration</legend>
-			<p style="color: red" th:text="${errorMessage}"></p>
-			<form action="#" th:action="@{/user}" th:object="${user}"
-				method="post">
-				<input type="hidden" th:field="*{id}" />
+			<legend>User Management</legend>
+			<p class="error" th:text="${errorMessage}"></p>
+			<form action="#" th:action="@{/userManagement}"
+				th:object="${userManagementForm}" method="post">
 				<table>
 					<tr>
 						<td>Name</td>
 						<td><input type="text" th:field="*{name}" /></td>
-						<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+						<td class="error" th:if="${#fields.hasErrors('name')}"
+							th:errors="*{name}">Name Error</td>
 					</tr>
 					<tr>
 						<td>E-mail</td>
 						<td><input type="text" th:field="*{email}" /></td>
-						<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">E-mail
-							Error</td>
-					</tr>
-					<tr>
+						<td class="error" th:if="${#fields.hasErrors('email')}"
+							th:errors="*{email}">E-mail Error</td>
 					</tr>
 					<tr>
 						<td>Password</td>
 						<td><input type="password" th:field="*{password}" /></td>
-						<td th:if="${#fields.hasErrors('password')}"
+						<td class="error" th:if="${#fields.hasErrors('password')}"
 							th:errors="*{password}">Password Error</td>
 					</tr>
 					<tr>

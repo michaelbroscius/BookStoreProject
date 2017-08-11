@@ -50,6 +50,6 @@ INSERT INTO `book` VALUES
 (28,2009,'Super Diaper Baby',1,2,22),
 (29,2012,'A Big Book',1,3,22),
 (30,1933,'Some Big Book',1,1,2),
-(31,1933,'Some Big Book',1,1,2),
-(32,1614,'A new Book',1,1,19),
-(33,2008,'Captain Underpants and the Attack of the Talking Toilets',1,3,22);
+(31,1614,'A new Book',1,1,19),
+(32,2008,'Captain Underpants and the Attack of the Talking Toilets',1,3,22),
+(33, 2003, 'Captain Underpants and the Big, Bad Battle of the Bionic Booger Boy Part 1: The Night of the Nasty Nostril Nuggets', 1, 3, 22);

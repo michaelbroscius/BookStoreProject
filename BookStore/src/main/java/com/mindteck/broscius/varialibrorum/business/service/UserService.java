@@ -4,29 +4,41 @@ import java.util.List;
 
 import com.mindteck.broscius.varialibrorum.business.service.impl.AuthenticationException;
 import com.mindteck.broscius.varialibrorum.data.entity.User;
+import com.mindteck.broscius.varialibrorum.web.form.UserManagementForm;
+import com.mindteck.broscius.varialibrorum.web.form.UserRegistrationForm;
 
 public interface UserService {
-	
+
 	/**
 	 * 
 	 * @param user
-	 * @return true if user added
+	 * @return user added
 	 */
-	boolean add(User user);
-	
-	/**	
-	 *   
+	User add(User user);
+
+	/**
+	 * 
+	 * @param userForm
+	 * @return user persisted
+	 */
+	User add(UserRegistrationForm userForm);
+
+	User add(UserManagementForm userManagementForm);
+
+	/**
+	 * 
 	 * @param email
 	 * @param password
 	 * @return User with email and password if valid, otherwise null
-	 * @throws AuthenticationException 
+	 * @throws AuthenticationException
 	 * 
 	 */
-	public User validateUser(String email, String password) throws AuthenticationException;
-	
-	public User getUser(String id);	
-	
-	public User getUser(Long id);
+	User validateUser(String email, String password) throws AuthenticationException;
+
+	User getUser(String id);
+
+	User getUser(Long id);
+
 	List<User> getAllUsers();
 
 }

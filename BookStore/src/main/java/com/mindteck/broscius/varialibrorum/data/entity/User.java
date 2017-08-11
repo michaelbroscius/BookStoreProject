@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -23,19 +22,16 @@ public class User {
 	@Column(name = "id")
 	private Long id;
 
-	// TODO delete comment if this works (look into message.properties)
-	@NotNull
-	@Size(max = 100, min = 3/*, message = "{user.name.invalid}"*/)
+	// TODO CHANGE to first name and last name
+	@Size(max = 100, min = 3)
 	private String name;
 
 	// TODO Add uniqueness requirement on SQL CREATE
-	@NotNull
-	@Size(max = 50, min = 5)
+	@Size(max = 60)
 	@Column(name = "email", unique = true)
 	@Email(message = "{user.email.invalid}")
 	private String email;
 
-	@NotNull
 	@Size(min = 1, max = 250)
 	private String password;
 

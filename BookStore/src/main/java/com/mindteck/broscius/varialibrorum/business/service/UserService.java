@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.mindteck.broscius.varialibrorum.business.service.impl.AuthenticationException;
 import com.mindteck.broscius.varialibrorum.data.entity.User;
-import com.mindteck.broscius.varialibrorum.web.form.UserManagementForm;
-import com.mindteck.broscius.varialibrorum.web.form.UserRegistrationForm;
+import com.mindteck.broscius.varialibrorum.data.form.UserManagementForm;
+import com.mindteck.broscius.varialibrorum.data.form.UserRegistrationForm;
 
 public interface UserService {
 

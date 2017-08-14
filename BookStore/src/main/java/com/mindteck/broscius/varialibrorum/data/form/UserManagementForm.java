@@ -1,11 +1,11 @@
-package com.mindteck.broscius.varialibrorum.web.form;
+package com.mindteck.broscius.varialibrorum.data.form;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
-public class UserRegistrationForm {
+public class UserManagementForm {
 	
 	@NotNull
 	@Size(max = 100, min = 3)

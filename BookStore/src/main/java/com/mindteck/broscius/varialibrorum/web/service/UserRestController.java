@@ -1,4 +1,4 @@
-package com.mindteck.broscius.varialibrorum.data.webservice;
+package com.mindteck.broscius.varialibrorum.web.service;
 
 import java.util.ArrayList;
 import java.util.List;

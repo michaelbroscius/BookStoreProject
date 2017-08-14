@@ -44,11 +44,28 @@
 							th:errors="*{password}">Password Error</td>
 					</tr>
 					<tr>
-						<td><button type="submit">Register</button></td>
+						<td><button type="submit">Submit</button></td>
 					</tr>
 				</table>
 			</form>
 		</fieldset>
+		<br />
+		<br />
+			<fieldset>
+		<legend>Users List</legend>
+		<table class="resltTable">
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Link</th>
+			</tr>
+				<tr th:each="user: ${users}">
+					<td th:text="${user.name}">User Name</td>
+					<td th:text="${user.email}">User E-mail</td>
+					<td><a href="getUser?id=${user.id}"> Edit</a></td>
+				</tr>
+		</table>
+	</fieldset>
 	</div>
 </body>
 </html>

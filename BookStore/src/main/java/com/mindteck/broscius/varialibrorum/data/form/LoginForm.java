@@ -1,4 +1,4 @@
-package com.mindteck.broscius.varialibrorum.web.form;
+package com.mindteck.broscius.varialibrorum.data.form;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

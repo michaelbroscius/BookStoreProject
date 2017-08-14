@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.mindteck.broscius.varialibrorum.business.service.UserService;
 import com.mindteck.broscius.varialibrorum.business.service.impl.AuthenticationException;
 import com.mindteck.broscius.varialibrorum.data.entity.User;
-import com.mindteck.broscius.varialibrorum.web.form.LoginForm;
+import com.mindteck.broscius.varialibrorum.data.form.LoginForm;
 
 @Controller
 @RequestMapping(value = "/login")

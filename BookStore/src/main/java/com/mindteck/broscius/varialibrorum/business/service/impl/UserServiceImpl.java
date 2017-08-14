@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mindteck.broscius.varialibrorum.business.service.UserService;
 import com.mindteck.broscius.varialibrorum.data.entity.Role;
 import com.mindteck.broscius.varialibrorum.data.entity.User;
+import com.mindteck.broscius.varialibrorum.data.form.UserManagementForm;
+import com.mindteck.broscius.varialibrorum.data.form.UserRegistrationForm;
 import com.mindteck.broscius.varialibrorum.data.repository.RoleRepository;
 import com.mindteck.broscius.varialibrorum.data.repository.UserRepository;
-import com.mindteck.broscius.varialibrorum.web.form.UserManagementForm;
-import com.mindteck.broscius.varialibrorum.web.form.UserRegistrationForm;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(userRegistrationForm.getEmail());
 		user.setPassword(userRegistrationForm.getPassword());
 		Role role = roleRepository.findByName("user");
-//		Role role = roleRepository.findOne(1l);
 		System.out.println("UserServiceImpl.add(userRegistrationForm): role=" + role);
 		user.setRole(role);
 

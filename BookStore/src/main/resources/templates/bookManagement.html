@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Varia Librorum Book Management</title>
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="container">
+		<div class="page-header">
+			<h1>Welcome to Varia Librorum</h1>
+		</div>
+		<fieldset>
+			<legend>Book Management</legend>
+			<p class="error" th:text="${errorMessage}"></p>
+			<form action="#" th:action="@{/bookManagement}"
+				th:object="${bookForm}" method="post">
+				<table>
+					<tr>
+						<td>Title</td>
+						<td><input type="text" th:field="*{title}"
+							th:required="required" /></td>
+						<td class="error" th:if="${#fields.hasErrors('title')}"
+							th:errors="*{title}">Title Error</td>
+					</tr>
+					<tr>
+						<td>Author</td>
+						<td><select th:field="*{authorId}">
+								<option th:each="authorPair : ${authorMap}"
+									th:value="${authorPair.key}" th:text="${authorPair.value}">James Joyce</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td>Category</td>
+						<td><select th:field="*{categoryId}">
+								<option th:each="categoryPair : ${categoryMap}"
+									th:value="${categoryPair.key}" th:text="${categoryPair.value}">Fiction</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td>Publisher</td>
+						<td><select th:field="*{publisherId}">
+								<option th:each="publisherPair : ${publisherMap}"
+									th:value="${publisherPair.key}"
+									th:text="${publisherPair.value}">Publication House Inc.</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td><button type="submit">Add Book</button></td>
+					</tr>
+				</table>
+			</form>
+		</fieldset>
+		<br /> <br />
+		<fieldset>
+			<legend>Books List</legend>
+			<table class="resltTable">
+				<tr>
+					<th>Name</th>
+					<th>Title</th>
+					<th>Category</th>
+					<th>Publisher</th>
+					<th>Link</th>
+				</tr>
+				<tr th:each="book: ${books}">
+					<td th:text="${book.title}">Title</td>
+					<td th:text="${book.author.fullName}">Author</td>
+					<td th:text="${book.category.name}">Category</td>
+					<td th:text="${book.publisher.name}">Publisher</td>
+					<td><a href="getBook?id=${book.id}"> Edit</a></td>
+				</tr>
+			</table>
+		</fieldset>
+	</div>
+</body>
+</html>

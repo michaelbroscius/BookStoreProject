@@ -1,6 +1,5 @@
 package com.mindteck.broscius.varialibrorum.business.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +22,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RoleRepository roleRepository;
-
-	//TODO find out how and implement autowired on constructor with two beans
-/*	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRespository) {
-		this.userRepository = userRepository;
-	}*/
 
 	@Transactional
 	@Override
@@ -66,13 +60,8 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = true)
 	@Override
 	public List<User> getAllUsers() {
-		List<User> userList = new ArrayList<>();
-		Iterable<User> users = userRepository.findAll();
-		users.forEach(user -> {
-			userList.add(user);
-		});
 
-		return userList;
+		return userRepository.findAll();
 	}
 
 	@Transactional(readOnly = true)
@@ -80,6 +69,12 @@ public class UserServiceImpl implements UserService {
 	public User getUser(String id) {
 		User user = userRepository.findOne(Long.parseLong(id));
 		return user;
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public User getUser(Long id) {
+		return userRepository.findOne(id);
 	}
 
 	@Transactional(readOnly = true)
@@ -102,11 +97,4 @@ public class UserServiceImpl implements UserService {
 		System.out.println("UserServiceImpl.validateUser: " + user);
 		return user;
 	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public User getUser(Long id) {
-		return userRepository.findOne(id);
-	}
-
 }

@@ -21,11 +21,7 @@ public class UserRestController {
 	List<User> findAll(@RequestParam(required = false) String userEmail) {
 		List<User> users = new ArrayList<>();
 		if (null == userEmail) {
-			Iterable<User> results = this.userRepository.findAll();
-			results.forEach(room -> {
-				users.add(room);
-			});
-
+			users = this.userRepository.findAll();
 		} else {
 			User user = this.userRepository.findByEmail(userEmail);
 			if (null != user) {

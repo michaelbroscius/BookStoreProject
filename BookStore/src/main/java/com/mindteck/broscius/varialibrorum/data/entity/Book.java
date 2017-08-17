@@ -36,6 +36,16 @@ public class Book extends Product {
 		this.category = category;
 	}
 
+	public Book(String description, float price, int numberInStock, String title, Author author, Publisher publisher,
+			Integer publicationYear, Category category) {
+		super(description, price, numberInStock);
+		this.title = title;
+		this.author = author;
+		this.publisher = publisher;
+		this.publicationYear = publicationYear;
+		this.category = category;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -75,8 +85,6 @@ public class Book extends Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
-	
 
 	@Override
 	public int hashCode() {
@@ -132,7 +140,5 @@ public class Book extends Product {
 		return "Book [title=" + title + ", author=" + author + ", publisher=" + publisher + ", publicationYear="
 				+ publicationYear + ", category=" + category + ", Product.toString()=" + super.toString() + "]";
 	}
-
-
 
 }

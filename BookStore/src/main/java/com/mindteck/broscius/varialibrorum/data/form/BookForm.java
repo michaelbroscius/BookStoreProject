@@ -6,6 +6,11 @@ public class BookForm {
 	private Long authorId;
 	private Long categoryId;
 	private Long publisherId;
+	private int publicationYear;
+
+	private String description;
+	private float price;
+	private int numberInStock;
 
 	public String getTitle() {
 		return title;
@@ -39,10 +44,45 @@ public class BookForm {
 		this.publisherId = publisherId;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getPublicationYear() {
+		return publicationYear;
+	}
+
+	public void setPublicationYear(int publicationYear) {
+		this.publicationYear = publicationYear;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public int getNumberInStock() {
+		return numberInStock;
+	}
+
+	public void setNumberInStock(int numberInStock) {
+		this.numberInStock = numberInStock;
+	}
+
 	@Override
 	public String toString() {
 		return "BookForm [title=" + title + ", authorId=" + authorId + ", categoryId=" + categoryId + ", publisherId="
-				+ publisherId + "]";
+				+ publisherId + ", publicationYear=" + publicationYear + ", description=" + description + ", price="
+				+ price + ", numberInStock=" + numberInStock + "]";
 	}
+
+
 
 }

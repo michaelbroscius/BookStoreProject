@@ -20,6 +20,15 @@ public abstract class Product {
 	private float price;
 	private int numberInStock;
 
+	protected Product() {
+	}
+
+	protected Product(String description, float price, int numberInStock) {
+		this.description = description;
+		this.price = price;
+		this.numberInStock = numberInStock;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -52,7 +61,6 @@ public abstract class Product {
 		this.numberInStock = numberInStock;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -86,8 +94,8 @@ public abstract class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id +  ", description=" + description + ", price=" + price
-				+ ", numberInStock=" + numberInStock + "]";
+		return "Product [id=" + id + ", description=" + description + ", price=" + price + ", numberInStock="
+				+ numberInStock + "]";
 	}
 
 }

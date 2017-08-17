@@ -37,9 +37,10 @@ public class BookServiceImpl implements BookService {
 	@Transactional
 	@Override
 	public Book add(BookForm bookForm) {
-		//TODO get date from bookForm
-		Book book = new Book(bookForm.getTitle(), authorRepository.findOne(bookForm.getAuthorId()), 
-				publisherRepository.findOne(bookForm.getPublisherId()), 1975, categoryRepository.findOne(bookForm.getCategoryId()));
+		Book book = new Book(bookForm.getDescription(), bookForm.getPrice(), bookForm.getNumberInStock(),
+				bookForm.getTitle(), authorRepository.findOne(bookForm.getAuthorId()),
+				publisherRepository.findOne(bookForm.getPublisherId()), bookForm.getPublicationYear(),
+				categoryRepository.findOne(bookForm.getCategoryId()));
 		bookRepository.save(book);
 		return book;
 	}

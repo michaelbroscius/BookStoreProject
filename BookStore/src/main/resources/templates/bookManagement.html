@@ -48,6 +48,27 @@
 						</select></td>
 					</tr>
 					<tr>
+						<td>Publication Year</td>
+						<td><input type="number" min="1400" max="3000" value="2017"
+							th:field="*{publicationYear}" th:required="required" /></td>
+					</tr>
+					<tr>
+						<td>Description</td>
+						<td><input type="text" th:field="*{description}" /></td>
+					</tr>
+					<tr>
+						<td>Price</td>
+						<td><input type="number" min="0" step="1.00" value="9.99"
+							th:field="*{price}" th:required="required" /></td>
+					</tr>
+					<tr>
+						<td>Number in Stock</td>
+						<td><input type="number" min="0" step="100"
+							value="
+							1000" th:field="*{numberInStock}"
+							th:required="required" /></td>
+					</tr>
+					<tr>
 						<td><button type="submit">Add Book</button></td>
 					</tr>
 				</table>
@@ -55,20 +76,28 @@
 		</fieldset>
 		<br /> <br />
 		<fieldset>
-			<legend>Books List</legend>
+			<legend>Books</legend>
 			<table class="resltTable">
 				<tr>
-					<th>Name</th>
 					<th>Title</th>
+					<th>Author</th>
 					<th>Category</th>
 					<th>Publisher</th>
-					<th>Link</th>
+					<th>Publication Year</th>
+					<th>Description</th>
+					<th>Price</th>
+					<th>Number in Stock</th>
+					<th></th>
 				</tr>
 				<tr th:each="book: ${books}">
 					<td th:text="${book.title}">Title</td>
 					<td th:text="${book.author.fullName}">Author</td>
 					<td th:text="${book.category.name}">Category</td>
 					<td th:text="${book.publisher.name}">Publisher</td>
+					<td th:text="${book.publicationYear}">Publication Year</td>
+					<td th:text="${book.description}">Description</td>
+					<td th:text="${book.price}">Price</td>
+					<td th:text="${book.numberInStock}">numberInStock</td>
 					<td><a href="getBook?id=${book.id}"> Edit</a></td>
 				</tr>
 			</table>

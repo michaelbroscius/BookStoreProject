@@ -27,14 +27,10 @@ public class ProductController {
 	}
 
 	@PostMapping("/index")
-	public String saveBook(@Valid ProductForm productForm, BindingResult bindingResult, Model model) {
+	public String saveBook(ProductForm productForm, Model model) {
 		System.out.println("\n\n\n*********************************************");
 		System.out.println("************ sent to product controller by POST *****");
 		System.out.println("*********************************************\n\n\n");
-
-		if (bindingResult.hasErrors()) {
-			return "products";
-		}
 
 		addBooksToModel(model);
 		model.addAttribute("authorMap", bookService.getAuthorMap());

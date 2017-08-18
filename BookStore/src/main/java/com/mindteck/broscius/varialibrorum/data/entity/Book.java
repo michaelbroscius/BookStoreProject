@@ -9,8 +9,6 @@ import javax.persistence.OneToOne;
 @Entity
 public class Book extends Product {
 
-	private String title;
-
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "author_id")
 	private Author author;
@@ -28,30 +26,21 @@ public class Book extends Product {
 	public Book() {
 	}
 
-	public Book(String title, Author author, Publisher publisher, Integer publicationYear, Category category) {
-		this.title = title;
-		this.author = author;
-		this.publisher = publisher;
-		this.publicationYear = publicationYear;
-		this.category = category;
-	}
-
 	public Book(String description, float price, int numberInStock, String title, Author author, Publisher publisher,
 			Integer publicationYear, Category category) {
-		super(description, price, numberInStock);
-		this.title = title;
+		super(title, description, price, numberInStock);
 		this.author = author;
 		this.publisher = publisher;
 		this.publicationYear = publicationYear;
 		this.category = category;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
+	public Book(String title, Author author, Publisher publisher, int publicationYear, Category category) {
+		setName(title);
+		this.author = author;
+		this.publisher = publisher;
+		this.publicationYear = publicationYear;
+		this.category = category;
 	}
 
 	public Author getAuthor() {
@@ -94,7 +83,6 @@ public class Book extends Product {
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((publicationYear == null) ? 0 : publicationYear.hashCode());
 		result = prime * result + ((publisher == null) ? 0 : publisher.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
 
@@ -127,18 +115,13 @@ public class Book extends Product {
 				return false;
 		} else if (!publisher.equals(other.publisher))
 			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Book [title=" + title + ", author=" + author + ", publisher=" + publisher + ", publicationYear="
-				+ publicationYear + ", category=" + category + ", Product.toString()=" + super.toString() + "]";
+		return "Book [author=" + author + ", publisher=" + publisher + ", publicationYear=" + publicationYear
+				+ ", category=" + category + super.toString() + "]";
 	}
 
 }

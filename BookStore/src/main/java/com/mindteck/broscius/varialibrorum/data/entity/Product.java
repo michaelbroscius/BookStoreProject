@@ -20,10 +20,13 @@ public abstract class Product {
 	private float price;
 	private int numberInStock;
 
+	private String name;
+
 	protected Product() {
 	}
 
-	protected Product(String description, float price, int numberInStock) {
+	protected Product(String name, String description, float price, int numberInStock) {
+		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.numberInStock = numberInStock;
@@ -35,6 +38,14 @@ public abstract class Product {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
@@ -95,7 +106,7 @@ public abstract class Product {
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", description=" + description + ", price=" + price + ", numberInStock="
-				+ numberInStock + "]";
+				+ numberInStock + ", name=" + name + "]";
 	}
 
 }

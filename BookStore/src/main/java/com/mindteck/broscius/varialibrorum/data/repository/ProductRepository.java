@@ -3,9 +3,9 @@ package com.mindteck.broscius.varialibrorum.data.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.mindteck.broscius.varialibrorum.data.entity.Author;
+import com.mindteck.broscius.varialibrorum.data.entity.Product;
 
 @Repository
-public interface AuthorRepository extends JpaRepository<Author, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
 }

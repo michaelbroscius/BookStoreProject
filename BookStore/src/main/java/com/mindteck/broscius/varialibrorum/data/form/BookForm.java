@@ -1,6 +1,5 @@
 package com.mindteck.broscius.varialibrorum.data.form;
 
-//TODO implement BookForm class
 public class BookForm {
 	private String title;
 	private Long authorId;

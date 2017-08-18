@@ -41,7 +41,7 @@ class LoginController {
 					session.setAttribute("userEmail", loginForm.getEmail());
 					session.setAttribute("userRole", user.getRole());
 					System.out.println("LoginController.validateUser returning index");
-					return "index";
+					return "forward:/index";
 				}
 			} catch (AuthenticationException e) {
 				System.out.println("LoginController.validateUser caught error");

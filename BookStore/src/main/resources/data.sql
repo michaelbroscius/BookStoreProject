@@ -34,7 +34,7 @@ INSERT INTO author VALUES
 (8,'Bill','Smith'),
 (9,'Truman','Capote');
 
-INSERT INTO product (id, description, number_in_stock, price, author_id, category_id, publication_year, publisher_id, title, dtype) VALUES
+INSERT INTO product (id, description, number_in_stock, price, author_id, category_id, publication_year, publisher_id, name, dtype) VALUES
 (1,'a very cool book', 9000, 12.99, 1, 1, 2018, 1, 'The Visitor', 'Book'),
 (2,'a perennial classic',3500, 5.99, 2, 2, 1920, 3, 'The Sun Also Rises', 'Book'),
 (3,'an amazing yarn', 3300, 22.99, 3, 2, 1918, 1, 'The Hound of the Baskervilles', 'Book'),

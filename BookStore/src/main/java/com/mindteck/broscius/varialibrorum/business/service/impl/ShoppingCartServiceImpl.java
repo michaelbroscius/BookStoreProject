@@ -6,20 +6,37 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mindteck.broscius.varialibrorum.business.service.ShoppingCartService;
 import com.mindteck.broscius.varialibrorum.data.entity.CartItem;
+import com.mindteck.broscius.varialibrorum.data.entity.Product;
 import com.mindteck.broscius.varialibrorum.data.entity.ShoppingCart;
 import com.mindteck.broscius.varialibrorum.data.entity.User;
+import com.mindteck.broscius.varialibrorum.data.repository.CartItemRepository;
+import com.mindteck.broscius.varialibrorum.data.repository.ProductRepository;
 import com.mindteck.broscius.varialibrorum.data.repository.ShoppingCartRepository;
+import com.mindteck.broscius.varialibrorum.data.repository.UserRepository;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	@Autowired
 	ShoppingCartRepository shoppingCartRepository;
+	@Autowired
+	CartItemRepository cartItemRepository;
+	@Autowired
+	UserRepository userRepository;
+	@Autowired
+	ProductRepository productRepository;
 
 	@Transactional(readOnly = true)
 	@Override
 	public ShoppingCart getShoppingCartForUser(User user) {
-		return shoppingCartRepository.findByUser(user);
+		ShoppingCart shoppingCart = shoppingCartRepository.findByUser(user);
+		if (shoppingCart == null) {
+			shoppingCart = new ShoppingCart();
+			shoppingCart.setUser(user);
+			shoppingCartRepository.save(shoppingCart);
+		}
+		System.out.println("ShoppingCartServiceImpl getShoppingCartForUser( " + user + " returning " + shoppingCart);
+		return shoppingCart;
 	}
 
 	@Transactional(readOnly = true)
@@ -31,10 +48,25 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Transactional
 	@Override
 	public ShoppingCart addItemToCart(CartItem cartItem, ShoppingCart shoppingCart) {
+		cartItemRepository.save(cartItem);
 		boolean cartChanged = shoppingCart.addItem(cartItem);
 		if (cartChanged)
 			shoppingCartRepository.save(shoppingCart);
 		return shoppingCart;
+	}
+
+	@Transactional
+	@Override
+	public ShoppingCart addItemToUserCart(User user, Long productId, Integer quantity) {
+		ShoppingCart shoppingCart = getShoppingCartForUser(user);
+		Product product = productRepository.findOne(productId);
+		CartItem cartItem = new CartItem(product, quantity);
+		
+		System.out.println("ShoppingCartService addItemToUserCart adding: cartItem " + cartItem + "and shoppingCart "
+				+ shoppingCart);
+		addItemToCart(cartItem, shoppingCart);
+
+		return addItemToCart(cartItem, shoppingCart);
 	}
 
 	@Transactional

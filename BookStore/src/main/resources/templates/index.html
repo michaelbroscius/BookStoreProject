@@ -16,8 +16,8 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 
 <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/ddsmoothmenu.js">
+<script src="js/jquery.min.js"></script>
+<script src="js/ddsmoothmenu.js">
 	/***********************************************
 	 * Smooth Navigational Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
 	 * This notice MUST stay intact for legal use
@@ -25,7 +25,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 	 ***********************************************/
 </script>
 
-<script type="text/javascript">
+<script>
 	ddsmoothmenu.init({
 		mainmenuid : "templatemo_menu", //menu DIV id
 		orientation : 'h', //Horizontal or vertical menu: Set to "h" or "v"
@@ -73,29 +73,10 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 		<div id="templatemo_header">
 			<div id="site_title">
 				<h1>
-					<a href="#">Free Website Template</a>
+					<a href="#">Varia Librorum</a>
 				</h1>
 			</div>
 
-			<div id="header_right">
-				<ul id="language">
-					<li><a><img src="images/usa.png" alt="English" /></a></li>
-					<li><a><img src="images/china.png" alt="Chinese" /></a></li>
-					<li><a><img src="images/germany.png" alt="Germany" /></a></li>
-					<li><a><img src="images/india.png" alt="Indian" /></a></li>
-				</ul>
-				<div class="cleaner"></div>
-				<div id="templatemo_search">
-					<form action="#" method="get">
-						<input type="text" value="Search" name="keyword" id="keyword"
-							title="keyword" onfocus="clearText(this)"
-							onblur="clearText(this)" class="txt_field" /> <input
-							type="submit" name="Search" value="" alt="Search"
-							id="searchbutton" title="Search" class="sub_btn" />
-					</form>
-				</div>
-			</div>
-			<!-- END -->
 		</div>
 		<!-- END of header -->
 
@@ -127,9 +108,6 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 		<div id="templatemo_middle">
 			<img src="images/templatemo_image_01.png" alt="Image 01" />
 			<h1>Introducing Web Store</h1>
-			<p>Web Store is a free css template for your personal or
-				commercial websites. Feel free to download, edit and use this
-				template for any purpose.</p>
 			<a href="#" class="buy_now">Browse All Products</a>
 		</div>
 		<!-- END of middle -->
@@ -212,7 +190,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 						alt="Product 01" th:alt="${book.name}" /></a>
 					<h3 th:text="${book.name}">Title</h3>
 					<p class="product_price"  th:text="${book.price}">$ 100</p>
-					<a href="shoppingcart.html" class="add_to_cart">Add to Cart</a>
+					<a th:href="@{/addtoshoppingcart(id=${book.id})}" class="add_to_cart">Add to Cart</a>
 				</div>
 			</div>
 			<!-- END of content -->
@@ -271,7 +249,6 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 			</div>
 
 			<div class="cleaner h40"></div>
-			<center>Copyright © 2048 Your Company Name</center>
 		</div>
 		<!-- END of footer -->
 

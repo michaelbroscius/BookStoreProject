@@ -36,7 +36,6 @@ public class BookManagementController {
 		System.out.println("\n\n*************************************************************************************");
 		System.out.println("************************** Added " + book + "*****************************\n\n");
 
-		// TODO add paging and sorting to book management page
 		addBooksAndMapsToModel(model);
 		model.addAttribute("authorMap", bookService.getAuthorMap());
 

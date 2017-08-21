@@ -85,7 +85,5 @@ public class BookRepositoryTest {
 
 		System.out.println("\n*************Original Books*************");
 		bookRepository.findAll().forEach(System.out::println);
-		// TODO fix mappings or ditch book schema.
-		// TODO add more tests
 	}
 }

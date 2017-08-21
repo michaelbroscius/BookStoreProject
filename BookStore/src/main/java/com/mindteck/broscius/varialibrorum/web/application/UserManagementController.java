@@ -37,7 +37,6 @@ public class UserManagementController {
 		User user = userService.add(userManagementForm);
 		System.out.println(user.getId() + " / " + user.getEmail() + " / " + user.getPassword());
 		
-		//TODO add paging and sorting to user management page
 		addUsersToModel(model);
 
 		return "userManagement";

@@ -1,5 +1,6 @@
 package com.mindteck.broscius.varialibrorum.data.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -19,12 +20,25 @@ public class ShoppingCart {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
-	
+
 	@OneToMany
 	private Set<CartItem> cart;
-	
+
 	@OneToOne
 	private User user;
+
+	{
+		cart = new HashSet<>();
+	}
+
+	public ShoppingCart() {
+
+	}
+
+	public ShoppingCart(User user) {
+		this.user = user;
+
+	}
 
 	public Long getId() {
 		return id;
@@ -49,13 +63,18 @@ public class ShoppingCart {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public boolean addItem(CartItem cartItem) {
 		return cart.add(cartItem);
 	}
-	
+
 	public boolean removeItem(CartItem cartItem) {
 		return cart.remove(cartItem);
 	}
-	
+
+	@Override
+	public String toString() {
+		return "ShoppingCart [id=" + id + ", cart=" + cart + ", user=" + user + "]";
+	}
+
 }

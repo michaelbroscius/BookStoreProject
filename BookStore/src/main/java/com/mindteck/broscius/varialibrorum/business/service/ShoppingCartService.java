@@ -23,6 +23,15 @@ public interface ShoppingCartService {
 	 * @return
 	 */
 	ShoppingCart addItemToCart(CartItem cartItem, ShoppingCart shoppingCart);
+	
+	/**
+	 * 
+	 * @param user
+	 * @param cartItem
+	 * @param shoppingCart
+	 * @return adds cartItem to shoppingCart for corresponding user
+	 */
+	ShoppingCart addItemToUserCart(User user, Long productId, Integer quantity);
 
 	ShoppingCart removeItemFromCart(CartItem cartItem, ShoppingCart shoppingCart);
 

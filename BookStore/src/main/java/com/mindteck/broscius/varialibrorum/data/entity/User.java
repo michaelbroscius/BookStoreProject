@@ -26,7 +26,6 @@ public class User {
 	@Size(max = 100, min = 3)
 	private String name;
 
-	// TODO Add uniqueness requirement on SQL CREATE
 	@Size(max = 60)
 	@Column(name = "email", unique = true)
 	@Email(message = "{user.email.invalid}")

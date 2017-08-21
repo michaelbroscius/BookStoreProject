@@ -22,6 +22,14 @@ public class CartItem {
 	@OneToOne
 	private Product product;
 
+	public CartItem() {
+	}
+	
+	public CartItem(Product product, Integer quantity) {
+		this.product = product;
+		this.quantity = quantity;
+	}
+
 	public Long getId() {
 		return id;
 	}

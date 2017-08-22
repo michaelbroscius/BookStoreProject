@@ -20,13 +20,14 @@ public class ProductController {
 	public String showBookForm(ProductForm productForm, Model model, HttpSession session) {
 		if(!ControllerUtilities.isUserAuthenticated(session))
 		{
+			System.out.println("ProductController @GetMapping(\"/index\"): user not authenticated. Redirecting to login page.");
 		    session.invalidate();
 		    return "redirect:/login";
 		}
 
 		System.out.println("\n\n\n*********************************************");
 		System.out.println("************ sent to product controller by GET *****");
-		System.out.println("*********************************************\\n\\n\\n");
+		System.out.println("*********************************************\n\n\n");
 		
 		addBooksToModel(model);
 		return "index";
@@ -36,6 +37,7 @@ public class ProductController {
 	public String saveBook(ProductForm productForm, Model model, HttpSession session) {
 		if(!ControllerUtilities.isUserAuthenticated(session))
 		{
+			System.out.println("ProductController @PostMapping(\"/index\"): user not authenticated. Redirecting to login page.");
 		    session.invalidate();
 		    return "redirect:/login";
 		}

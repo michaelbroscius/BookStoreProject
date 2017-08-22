@@ -18,11 +18,12 @@ public class ControllerUtilities {
 	}
 
 	public static Model addUserCartToModel(User user, Model model, ShoppingCartService shoppingCartService) {
+		System.out.println("ControllerUtilities.addUserCartToModel getting shopping cart for User " + user);
 		ShoppingCart shoppingCart = shoppingCartService.getShoppingCartForUser(user);
 		model.addAttribute("shoppingcart", shoppingCart);
 
 		System.out.println(
-				"\n\n ################## ShoppingCartController.addUserCartToModel cart: " + shoppingCart.getCart());
+				"\n\n ################## ShoppingCartController.addUserCartToModel shoppingCart: " + shoppingCart);
 
 		return model;
 	}

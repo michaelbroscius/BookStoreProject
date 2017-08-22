@@ -29,13 +29,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Transactional(readOnly = true)
 	@Override
 	public ShoppingCart getShoppingCartForUser(User user) {
+		System.out.println("Entered ShoppingCartServiceImpl.getShoppingCartForUser for user " + user);
 		ShoppingCart shoppingCart = shoppingCartRepository.findByUser(user);
+		System.out.println("ShoppingCartServiceImpl.getShoppingCartForUser shoppingCartRepository.findByUser returned " + shoppingCart);
 		if (shoppingCart == null) {
 			shoppingCart = new ShoppingCart();
 			shoppingCart.setUser(user);
 			shoppingCartRepository.save(shoppingCart);
 		}
-		System.out.println("ShoppingCartServiceImpl getShoppingCartForUser( " + user + " returning " + shoppingCart);
+		System.out.println("ShoppingCartServiceImpl.getShoppingCartForUser( " + user + " returning " + shoppingCart);
 		return shoppingCart;
 	}
 

@@ -54,7 +54,7 @@ public class CartItem {
 		this.product = product;
 	}
 	
-	public float calculateTotal() {
+	public double calculateTotal() {
 		return quantity * product.getPrice();
 	}
 

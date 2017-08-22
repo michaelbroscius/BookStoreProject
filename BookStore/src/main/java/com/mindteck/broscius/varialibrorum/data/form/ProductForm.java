@@ -3,7 +3,7 @@ package com.mindteck.broscius.varialibrorum.data.form;
 public class ProductForm {
 	private String name;
 	private String description;
-	private float price;
+	private double price;
 	private int numberInStock;
 
 	public String getName() {
@@ -22,11 +22,11 @@ public class ProductForm {
 		this.description = description;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

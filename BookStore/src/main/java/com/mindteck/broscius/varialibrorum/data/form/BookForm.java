@@ -8,7 +8,7 @@ public class BookForm {
 	private int publicationYear;
 
 	private String description;
-	private float price;
+	private double price;
 	private int numberInStock;
 
 	public String getTitle() {
@@ -59,11 +59,11 @@ public class BookForm {
 		this.publicationYear = publicationYear;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

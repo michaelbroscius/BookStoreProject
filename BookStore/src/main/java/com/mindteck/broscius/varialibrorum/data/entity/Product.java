@@ -17,7 +17,7 @@ public abstract class Product {
 	private Long id;
 
 	private String description;
-	private float price;
+	private double price;
 	private int numberInStock;
 
 	private String name;
@@ -25,7 +25,7 @@ public abstract class Product {
 	protected Product() {
 	}
 
-	protected Product(String name, String description, float price, int numberInStock) {
+	protected Product(String name, String description, double price, int numberInStock) {
 		this.name = name;
 		this.description = description;
 		this.price = price;
@@ -56,11 +56,11 @@ public abstract class Product {
 		this.description = description;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -77,8 +77,11 @@ public abstract class Product {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + numberInStock;
-		result = prime * result + Float.floatToIntBits(price);
+		long temp;
+		temp = Double.doubleToLongBits(price);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -96,9 +99,14 @@ public abstract class Product {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
 		if (numberInStock != other.numberInStock)
 			return false;
-		if (Float.floatToIntBits(price) != Float.floatToIntBits(other.price))
+		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 			return false;
 		return true;
 	}

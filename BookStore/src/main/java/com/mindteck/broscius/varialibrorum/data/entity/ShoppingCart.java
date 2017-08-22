@@ -72,8 +72,8 @@ public class ShoppingCart {
 		return cart.remove(cartItem);
 	}
 
-	public float calculateTotal() {
-		float total = (float) cart.stream().mapToDouble(CartItem::calculateTotal).reduce(0.0f, (x, y) -> x + y);
+	public double calculateTotal() {
+		double total = cart.stream().mapToDouble(CartItem::calculateTotal).reduce(0.0f, (x, y) -> x + y);
 
 		return total;
 	}

@@ -21,15 +21,17 @@
 				<table>
 					<tr>
 						<td>E-mail</td>
-						<td><input type="email" th:field="*{email}" th:required="required" /></td>
-						<td class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">E-mail
-							Error</td>
+						<td><input type="email" th:field="*{email}"
+							th:required="required" /></td>
+						<td class="error" th:if="${#fields.hasErrors('email')}"
+							th:errors="*{email}">E-mail Error</td>
 					</tr>
 					<tr>
 					</tr>
 					<tr>
 						<td>Password</td>
-						<td><input type="password" th:field="*{password}" th:required="required" /></td>
+						<td><input type="password" th:field="*{password}"
+							th:required="required" /></td>
 						<td class="error" th:if="${#fields.hasErrors('password')}"
 							th:errors="*{password}">Password Error</td>
 					</tr>

@@ -23,7 +23,7 @@ public class ShoppingCartController {
 	@GetMapping("/addtoshoppingcart")
 	public String addToShoppingCart(@RequestParam(value = "id", required = false) Long id, Model model,
 			HttpSession session) {
-		if (!LoginChecker.isUserAuthenticated(session)) {
+		if (!ControllerUtilities.isUserAuthenticated(session)) {
 			session.invalidate();
 			return "redirect:/login";
 		}
@@ -35,7 +35,7 @@ public class ShoppingCartController {
 		System.out.println("*****     user: " + user + "     ************************");
 
 		ShoppingCart shoppingCart = shoppingCartService.addItemToUserCart(user, id, 1);
-		addUserCartToModel(user, model);
+		ControllerUtilities.addUserCartToModel(user, model, shoppingCartService);
 		System.out.println("*****     cart: " + shoppingCart + "     ************************");
 
 		return "shoppingcart";
@@ -43,7 +43,7 @@ public class ShoppingCartController {
 
 	@GetMapping("/showshoppingcart")
 	public String addToShoppingCart(Model model, HttpSession session) {
-		if (!LoginChecker.isUserAuthenticated(session)) {
+		if (!ControllerUtilities.isUserAuthenticated(session)) {
 			session.invalidate();
 			return "redirect:/login";
 		}
@@ -51,22 +51,10 @@ public class ShoppingCartController {
 		User user = (User) session.getAttribute("user");
 
 		ShoppingCart shoppingCart = shoppingCartService.getShoppingCartForUser(user);
-		addUserCartToModel(user, model);
-		System.out.println("*****     cart: " + shoppingCart + "     ************************");
+		ControllerUtilities.addUserCartToModel(user, model, shoppingCartService);
+		System.out.println("\n*****########     cart: " + shoppingCart + "     #########***************\n");
 
 		return "shoppingcart";
-	}
-
-	/**
-	 * @param model
-	 */
-	public Model addUserCartToModel(User user, Model model) {
-		ShoppingCart shoppingCart = shoppingCartService.getShoppingCartForUser(user);
-		model.addAttribute("cart", shoppingCart.getCart());
-		
-		System.out.println("ShoppingCartController.addUserCartToModel cart: " + shoppingCart.getCart());
-
-		return model;
 	}
 
 }

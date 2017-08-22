@@ -17,7 +17,7 @@ import com.mindteck.broscius.varialibrorum.data.form.LoginForm;
 
 @Controller
 @RequestMapping(value = "/login")
-class LoginController {
+public class LoginController {
 
 	@Autowired
 	UserService userService;

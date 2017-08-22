@@ -53,6 +53,10 @@ public class CartItem {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+	
+	public float calculateTotal() {
+		return quantity * product.getPrice();
+	}
 
 	@Override
 	public int hashCode() {

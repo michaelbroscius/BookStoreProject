@@ -72,6 +72,43 @@ public class ShoppingCart {
 		return cart.remove(cartItem);
 	}
 
+	public float calculateTotal() {
+		float total = (float) cart.stream().mapToDouble(CartItem::calculateTotal).reduce(0.0f, (x, y) -> x + y);
+
+		return total;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cart == null) ? 0 : cart.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ShoppingCart other = (ShoppingCart) obj;
+		if (cart == null) {
+			if (other.cart != null)
+				return false;
+		} else if (!cart.equals(other.cart))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return "ShoppingCart [id=" + id + ", cart=" + cart + ", user=" + user + "]";

@@ -18,7 +18,7 @@ public class ProductController {
 
 	@GetMapping("/index")
 	public String showBookForm(ProductForm productForm, Model model, HttpSession session) {
-		if(!LoginChecker.isUserAuthenticated(session))
+		if(!ControllerUtilities.isUserAuthenticated(session))
 		{
 		    session.invalidate();
 		    return "redirect:/login";
@@ -34,7 +34,7 @@ public class ProductController {
 
 	@PostMapping("/index")
 	public String saveBook(ProductForm productForm, Model model, HttpSession session) {
-		if(!LoginChecker.isUserAuthenticated(session))
+		if(!ControllerUtilities.isUserAuthenticated(session))
 		{
 		    session.invalidate();
 		    return "redirect:/login";

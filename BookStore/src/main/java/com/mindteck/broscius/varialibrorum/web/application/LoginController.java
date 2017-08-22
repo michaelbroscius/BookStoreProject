@@ -39,8 +39,7 @@ public class LoginController {
 			try {
 				if (null != (user = userService.validateUser(loginForm.getEmail(), loginForm.getPassword()))) {
 					session.setAttribute("user", user);
-//					session.setAttribute("userEmail", loginForm.getEmail());
-//					session.setAttribute("userRole", user.getRole());
+
 					System.out.println("LoginController.validateUser returning index");
 					return "forward:/index";
 				}

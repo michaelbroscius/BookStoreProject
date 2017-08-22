@@ -5,7 +5,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.mindteck.broscius.varialibrorum.business.service.CheckoutService;
 import com.mindteck.broscius.varialibrorum.business.service.ShoppingCartService;
@@ -21,41 +23,55 @@ public class CheckoutController {
 	ShoppingCartService shoppingCartService;
 
 	@GetMapping("/checkoutpage")
-	public String showCheckout(Model model, HttpSession session) {
+	public String showCheckout(Order order, Model model, HttpSession session) {
 		if (!ControllerUtilities.isUserAuthenticated(session)) {
 			session.invalidate();
 			return "redirect:/login";
 		}
 
 		User user = (User) session.getAttribute("user");
-		System.out.println("\n\n**************************************************************");
-		System.out.println("*****     sent to checkout controller by GET   ****");
+		System.out.println("\n*****     sent to checkout controller by GET   ****");
 		System.out.println("*****     user: " + user + "     ************************");
 
 		ControllerUtilities.addUserCartToModel(user, model, shoppingCartService);
-		addOrderToModel(user, model);
-		System.out.println("**************************************************\n");
+		model.addAttribute("order", new Order());
 
 		return "checkout";
 	}
 
-	@GetMapping("/orderconfirmation")
-	public String placeOrder(Model model, HttpSession session) {
+	@PostMapping("/orderconfirmation")
+	// TODO check if order parameter is needed
+	public String placeOrder(Order order, BindingResult bindingResult, Model model, HttpSession session) {
 		if (!ControllerUtilities.isUserAuthenticated(session)) {
 			session.invalidate();
 			return "redirect:/login";
 		}
 
 		User user = (User) session.getAttribute("user");
-		System.out.println("\n\n**************************************************************");
-		System.out.println("*****     sent to checkout controller by GET   ****");
+		System.out.println("\n*****     sent to placeorder controller by GET   ****");
 		System.out.println("*****     user: " + user + "     ************************");
+		Order processedOrder = checkoutService.checkout(user);
+		System.out.println("CheckoutController.placeOrder: order: " + processedOrder);
 
-		// addUserCartToModel(user, model);
-		System.out.println("**************************************************");
-
-		return "checkout";
+		return "ordersummary";
 	}
+
+//	@GetMapping("/ordersummary")
+//	// TODO check if order parameter is needed
+//	public String summarizeOrder(Model model, HttpSession session) {
+//		if (!ControllerUtilities.isUserAuthenticated(session)) {
+//			session.invalidate();
+//			return "redirect:/login";
+//		}
+//
+//		User user = (User) session.getAttribute("user");
+//		System.out.println("\n*****     sent to placeorder controller by GET   ****");
+//		System.out.println("*****     user: " + user + "     ************************");
+//		Order order = checkoutService.getOrderForUser(user);
+//		System.out.println("CheckoutController.placeOrder: order: " + order);
+//
+//		return "ordersummary";
+//	}
 
 	public Model addOrderToModel(User user, Model model) {
 		Order order = checkoutService.getOrderForUser(user);

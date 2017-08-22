@@ -35,7 +35,7 @@ public class Order {
 	private String billingEmail;
 
 	@Embedded
-	private Address billingAddress;
+	private Address address;
 
 	{
 		items = new HashSet<>();
@@ -98,19 +98,25 @@ public class Order {
 		this.billingEmail = billingEmail;
 	}
 
-	public Address getBillingAddress() {
-		return billingAddress;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setBillingAddress(Address billingAddress) {
-		this.billingAddress = billingAddress;
+	public void setAddress(Address billingAddress) {
+		this.address = billingAddress;
+	}
+
+	public double calculateTotal() {
+		double total = items.stream().mapToDouble(OrderItem::calculateTotal).reduce(0.0f, (x, y) -> x + y);
+
+		return total;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((billingAddress == null) ? 0 : billingAddress.hashCode());
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((billingEmail == null) ? 0 : billingEmail.hashCode());
 		result = prime * result + ((billingName == null) ? 0 : billingName.hashCode());
 		result = prime * result + ((items == null) ? 0 : items.hashCode());
@@ -128,10 +134,10 @@ public class Order {
 		if (getClass() != obj.getClass())
 			return false;
 		Order other = (Order) obj;
-		if (billingAddress == null) {
-			if (other.billingAddress != null)
+		if (address == null) {
+			if (other.address != null)
 				return false;
-		} else if (!billingAddress.equals(other.billingAddress))
+		} else if (!address.equals(other.address))
 			return false;
 		if (billingEmail == null) {
 			if (other.billingEmail != null)
@@ -164,7 +170,7 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", items=" + items + ", user=" + user + ", billingName=" + billingName + ", phone="
-				+ phone + ", billingEmail=" + billingEmail + ", billingAddress=" + billingAddress + "]";
+				+ phone + ", billingEmail=" + billingEmail + ", billingAddress=" + address + "]";
 	}
 
 }

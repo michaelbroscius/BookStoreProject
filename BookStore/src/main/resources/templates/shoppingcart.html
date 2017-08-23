@@ -151,7 +151,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 
 					</tr>
 					<tr th:each="cartItem: ${shoppingcart.cart}">
-						<td><img src="images/product/01.jpg" alt="image 01" /></td>
+						<td><img width="200px" height="300px" th:src="@{/images/product/__${cartItem.product.imageFileName}__}" alt="Product 01" th:alt="${cartItem.product.name}" /></td>
 						<td th:text="${cartItem.product.name}">Etiam in tellus</td>
 						<td align="center"><input type="text" value="1"
 							style="width: 20px; text-align: right" /></td>

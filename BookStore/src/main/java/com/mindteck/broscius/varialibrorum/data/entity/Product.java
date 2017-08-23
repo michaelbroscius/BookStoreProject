@@ -22,6 +22,9 @@ public abstract class Product {
 
 	private String name;
 
+	@Column(name = "fileName")
+	private String imageFileName;
+
 	protected Product() {
 	}
 
@@ -72,6 +75,14 @@ public abstract class Product {
 		this.numberInStock = numberInStock;
 	}
 
+	public String getImageFileName() {
+		return imageFileName;
+	}
+
+	public void setImageFileName(String imageFileName) {
+		this.imageFileName = imageFileName;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -114,7 +125,8 @@ public abstract class Product {
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", description=" + description + ", price=" + price + ", numberInStock="
-				+ numberInStock + ", name=" + name + "]";
+				+ numberInStock + ", name=" + name + ", imageFileName=" + imageFileName + "]";
 	}
+
 
 }

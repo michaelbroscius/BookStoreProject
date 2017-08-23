@@ -13,7 +13,6 @@ Web Store Template
 http://www.templatemo.com/preview/templatemo_341_web_store 
 -->
 <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
-
 <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
 
 <script src="js/jquery.min.js"></script>
@@ -186,7 +185,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 
 			<div id="content">
 				<div class="col col_14 product_gallery" th:each="book: ${books}">
-					<a href="productdetail.html"><img src="images/product/01.jpg"
+					<a href="productdetail.html"><img width="100px" height="150px" th:src="@{/images/product/__${book.imageFileName}__}"
 						alt="Product 01" th:alt="${book.name}" /></a>
 					<h3 th:text="${book.name}">Title</h3>
 					<p class="product_price"  th:text="${book.price}">$ 100</p>

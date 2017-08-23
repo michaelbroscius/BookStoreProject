@@ -3,6 +3,7 @@ package com.mindteck.broscius.varialibrorum.data.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class Order {
 	@Column(name = "id")
 	private Long id;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<OrderItem> items;
 
 	@OneToOne
@@ -47,7 +48,14 @@ public class Order {
 
 	public Order(User user) {
 		this.user = user;
+	}
 
+	public Order(User user, String billingName, String phone, String billingEmail, Address address) {
+		this.user = user;
+		this.billingName = billingName;
+		this.phone = phone;
+		this.billingEmail = billingEmail;
+		this.address = address;
 	}
 
 	public Long getId() {
@@ -64,6 +72,10 @@ public class Order {
 
 	public void setItems(Set<OrderItem> items) {
 		this.items = items;
+	}
+
+	public void addItem(OrderItem orderItem) {
+		items.add(orderItem);
 	}
 
 	public User getUser() {
@@ -110,6 +122,10 @@ public class Order {
 		double total = items.stream().mapToDouble(OrderItem::calculateTotal).reduce(0.0f, (x, y) -> x + y);
 
 		return total;
+	}
+
+	public int countItems() {
+		return items.size();
 	}
 
 	@Override

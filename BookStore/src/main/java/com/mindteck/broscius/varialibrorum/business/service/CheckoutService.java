@@ -19,6 +19,6 @@ public interface CheckoutService {
 	 * @param user
 	 * @return processed, persisted order
 	 */
-	Order checkout(User user);
+	Order checkout(Order order, User user);
 
 }

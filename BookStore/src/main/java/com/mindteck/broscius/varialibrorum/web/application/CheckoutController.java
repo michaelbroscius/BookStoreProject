@@ -49,7 +49,7 @@ public class CheckoutController {
 		User user = (User) session.getAttribute("user");
 		System.out.println("\n*****     sent to placeorder controller by GET   ****");
 		System.out.println("*****     user: " + user + "     ************************");
-		Order processedOrder = checkoutService.checkout(user);
+		Order processedOrder = checkoutService.checkout(order, user);
 		System.out.println("CheckoutController.placeOrder: order: " + processedOrder);
 
 		return "ordersummary";

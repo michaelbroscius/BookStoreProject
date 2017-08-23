@@ -1,6 +1,5 @@
 package com.mindteck.broscius.varialibrorum.data.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -9,17 +8,17 @@ import javax.persistence.OneToOne;
 @Entity
 public class Book extends Product {
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "author_id")
 	private Author author;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "publisher_id", nullable = true)
 	private Publisher publisher;
 
 	private Integer publicationYear;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "category_id", nullable = true)
 	private Category category;
 

@@ -22,7 +22,6 @@ public class User {
 	@Column(name = "id")
 	private Long id;
 
-	// TODO CHANGE to first name and last name
 	@Size(max = 100, min = 3)
 	private String name;
 

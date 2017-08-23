@@ -26,6 +26,16 @@ public class OrderItem {
 
 	public OrderItem() {
 	}
+	
+
+	public OrderItem(Long productId, double price, int quantity, boolean shipped) {
+		this.productId = productId;
+		this.price = price;
+		this.quantity = quantity;
+		this.shipped = shipped;
+	}
+
+
 
 	public Long getId() {
 		return id;

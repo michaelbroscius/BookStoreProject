@@ -84,6 +84,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Transactional
 	@Override
 	public ShoppingCart clearCart(ShoppingCart shoppingCart) {
+		for(CartItem cartItem : shoppingCart.getCart()) {
+			cartItemRepository.delete(cartItem);
+		}
 		shoppingCart.clearCart();
 		shoppingCartRepository.save(shoppingCart);
 		return shoppingCart;

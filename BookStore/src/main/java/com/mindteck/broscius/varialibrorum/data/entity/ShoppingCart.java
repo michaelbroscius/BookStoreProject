@@ -3,6 +3,7 @@ package com.mindteck.broscius.varialibrorum.data.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class ShoppingCart {
 	@Column(name = "id")
 	private Long id;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<CartItem> cart;
 
 	@OneToOne

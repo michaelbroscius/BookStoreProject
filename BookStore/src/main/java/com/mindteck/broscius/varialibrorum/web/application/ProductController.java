@@ -16,7 +16,7 @@ public class ProductController {
 	@Autowired
 	BookService bookService;
 
-	@GetMapping("/index")
+	@GetMapping( value = { "/index", "/products.html" })
 	public String showBookForm(ProductForm productForm, Model model, HttpSession session) {
 		if(!ControllerUtilities.isUserAuthenticated(session))
 		{
@@ -33,7 +33,7 @@ public class ProductController {
 		return "index";
 	}
 
-	@PostMapping("/index")
+	@PostMapping( value = { "/index", "/products.html" })
 	public String saveBook(ProductForm productForm, Model model, HttpSession session) {
 		if(!ControllerUtilities.isUserAuthenticated(session))
 		{

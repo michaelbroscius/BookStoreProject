@@ -26,7 +26,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Autowired
 	ProductRepository productRepository;
 
-	@Transactional(readOnly = true)
+	@Transactional
 	@Override
 	public ShoppingCart getShoppingCartForUser(User user) {
 		System.out.println("Entered ShoppingCartServiceImpl.getShoppingCartForUser for user " + user);
@@ -84,12 +84,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Transactional
 	@Override
 	public ShoppingCart clearCart(ShoppingCart shoppingCart) {
-		return clearCart();
+		shoppingCart.clearCart();
+		shoppingCartRepository.save(shoppingCart);
+		return shoppingCart;
 	}
 
-	private ShoppingCart clearCart() {
-		// TODO decide whether and how to persist clearing of cart
-		return new ShoppingCart();
-	}
 
 }

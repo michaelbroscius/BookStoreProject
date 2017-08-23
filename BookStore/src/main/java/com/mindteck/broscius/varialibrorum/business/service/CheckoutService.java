@@ -14,6 +14,11 @@ public interface CheckoutService {
 
 	Order getShoppingCart(Long id);
 	
+	/**
+	 * Clears cart and processes order.
+	 * @param user
+	 * @return processed, persisted order
+	 */
 	Order checkout(User user);
 
 }

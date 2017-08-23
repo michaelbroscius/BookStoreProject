@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mindteck.broscius.varialibrorum.business.service.CheckoutService;
+import com.mindteck.broscius.varialibrorum.business.service.ShoppingCartService;
 import com.mindteck.broscius.varialibrorum.data.entity.Order;
 import com.mindteck.broscius.varialibrorum.data.entity.ShoppingCart;
 import com.mindteck.broscius.varialibrorum.data.entity.User;
@@ -16,6 +17,8 @@ import com.mindteck.broscius.varialibrorum.data.repository.UserRepository;
 @Service
 public class CheckoutServiceImpl implements CheckoutService {
 
+	@Autowired
+	ShoppingCartService shoppingCartService;
 	@Autowired
 	ShoppingCartRepository shoppingCartRepository;
 	@Autowired
@@ -42,10 +45,14 @@ public class CheckoutServiceImpl implements CheckoutService {
 	@Transactional
 	@Override
 	public Order checkout(User user) {
-		// TODO Auto-generated method stub
+		
 
 		Order order = getOrderForUser(user);
 		ShoppingCart shoppingCart = shoppingCartRepository.findByUser(user);
+		System.out.println("\n CheckoutServiceImpl user: " + user + "\n checking out." + "\n shoppingCart: "
+				+ shoppingCart + "\n order: " + order + " before checkout.");
+		
+		shoppingCartService.clearCart(shoppingCart);	
 
 		System.out.println("\n CheckoutServiceImpl user: " + user + "\n checking out." + "\n shoppingCart: "
 				+ shoppingCart + "\n order: " + order + ".");

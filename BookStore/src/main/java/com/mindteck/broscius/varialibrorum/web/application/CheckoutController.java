@@ -22,7 +22,7 @@ public class CheckoutController {
 	@Autowired
 	ShoppingCartService shoppingCartService;
 
-	@GetMapping("/checkoutpage")
+	@GetMapping(value = {"/checkoutpage", "/checkout.html"})
 	public String showCheckout(Order order, Model model, HttpSession session) {
 		if (!ControllerUtilities.isUserAuthenticated(session)) {
 			session.invalidate();
@@ -40,7 +40,6 @@ public class CheckoutController {
 	}
 
 	@PostMapping("/orderconfirmation")
-	// TODO check if order parameter is needed
 	public String placeOrder(Order order, BindingResult bindingResult, Model model, HttpSession session) {
 		if (!ControllerUtilities.isUserAuthenticated(session)) {
 			session.invalidate();
@@ -56,30 +55,11 @@ public class CheckoutController {
 		return "ordersummary";
 	}
 
-//	@GetMapping("/ordersummary")
-//	// TODO check if order parameter is needed
-//	public String summarizeOrder(Model model, HttpSession session) {
-//		if (!ControllerUtilities.isUserAuthenticated(session)) {
-//			session.invalidate();
-//			return "redirect:/login";
-//		}
-//
-//		User user = (User) session.getAttribute("user");
-//		System.out.println("\n*****     sent to placeorder controller by GET   ****");
-//		System.out.println("*****     user: " + user + "     ************************");
-//		Order order = checkoutService.getOrderForUser(user);
-//		System.out.println("CheckoutController.placeOrder: order: " + order);
-//
-//		return "ordersummary";
-//	}
-
 	public Model addOrderToModel(User user, Model model) {
 		Order order = checkoutService.getOrderForUser(user);
 		model.addAttribute("order", order);
 
-		System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		System.out.println("ShoppingCartController.addOrderToModel order: " + order);
-		System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 
 		return model;
 	}

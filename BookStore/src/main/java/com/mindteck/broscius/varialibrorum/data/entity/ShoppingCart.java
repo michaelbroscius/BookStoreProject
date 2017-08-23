@@ -77,6 +77,14 @@ public class ShoppingCart {
 
 		return total;
 	}
+	
+	public void clearCart() {
+		cart = new HashSet<>();
+	}
+	
+	public boolean isEmpty() {
+		return cart.isEmpty();
+	}
 
 	@Override
 	public int hashCode() {

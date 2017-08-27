@@ -42,6 +42,7 @@ public class BookServiceImpl implements BookService {
 				publisherRepository.findOne(bookForm.getPublisherId()), bookForm.getPublicationYear(),
 				categoryRepository.findOne(bookForm.getCategoryId()));
 		bookRepository.save(book);
+		
 		return book;
 	}
 

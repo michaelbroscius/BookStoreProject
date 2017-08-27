@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 
 public class UserManagementForm {
-	
+
 	@NotNull
 	@Size(max = 100, min = 3)
 	private String name;
@@ -44,5 +44,9 @@ public class UserManagementForm {
 		this.password = password;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "UserManagementForm [name=" + name + ", email=" + email + ", password==null " + (password == null) + "]";
+	}
+
 }

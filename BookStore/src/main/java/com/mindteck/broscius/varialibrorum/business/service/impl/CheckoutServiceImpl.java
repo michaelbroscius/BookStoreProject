@@ -3,6 +3,8 @@ package com.mindteck.broscius.varialibrorum.business.service.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,15 +23,20 @@ import com.mindteck.broscius.varialibrorum.data.repository.UserRepository;
 
 @Service
 public class CheckoutServiceImpl implements CheckoutService {
+	private final Logger logger = LoggerFactory.getLogger(CheckoutServiceImpl.class);
 
 	@Autowired
 	ShoppingCartService shoppingCartService;
+
 	@Autowired
 	ShoppingCartRepository shoppingCartRepository;
+
 	@Autowired
 	CartItemRepository cartItemRepository;
+
 	@Autowired
 	UserRepository userRepository;
+
 	@Autowired
 	OrderRepository orderRepository;
 
@@ -37,7 +44,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 	@Override
 	public Order getOrderForUser(User user) {
 		Order order = orderRepository.findByUser(user);
-		System.out.println("\nCheckoutService getOrderForUser(user=" + user + ") returning Order=" + order + ".");
+		logger.debug("getOrderForUser(user={}) returning Order={}.", user, order);
 		return order;
 	}
 
@@ -50,19 +57,17 @@ public class CheckoutServiceImpl implements CheckoutService {
 	@Transactional
 	@Override
 	public Order checkout(Order order, User user) {
-
+		logger.debug("Entered checkout(order, user). order: {}, user:{}.", order, user);
 		ShoppingCart shoppingCart = shoppingCartRepository.findByUser(user);
-		System.out.println("\n CheckoutServiceImpl user: " + user + "\n checking out." + "\n shoppingCart: "
-				+ shoppingCart + "\n order: " + order + " before checkout.");
+		logger.debug("shoppingCart:{}.", shoppingCart);
 
 		order.setUser(user);
 		order = fillOrderFromShoppingCart(order, shoppingCart);
 		orderRepository.save(order);
 		shoppingCartService.clearCart(shoppingCart);
 
-		System.out.println("\n CheckoutServiceImpl user: " + user + "\n checking out." + "\n shoppingCart: "
-				+ shoppingCart + "\n order: " + order + ".");
-
+		logger.debug("After filling order  user: {}, shoppingCart: {}, order: {}.", user, shoppingCart, order);
+		logger.debug("checkout returning {}", order);
 		return order;
 	}
 

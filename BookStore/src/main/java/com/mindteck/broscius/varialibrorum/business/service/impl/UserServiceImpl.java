@@ -2,6 +2,8 @@ package com.mindteck.broscius.varialibrorum.business.service.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,7 @@ import com.mindteck.broscius.varialibrorum.data.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
+	private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private UserRepository userRepository;
@@ -38,7 +41,7 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(userRegistrationForm.getEmail());
 		user.setPassword(userRegistrationForm.getPassword());
 		Role role = roleRepository.findByName("user");
-		System.out.println("UserServiceImpl.add(userRegistrationForm): role=" + role);
+		logger.debug("In add(userRegistrationForm): role={}", role);
 		user.setRole(role);
 
 		return userRepository.save(user);
@@ -80,21 +83,20 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = true)
 	@Override
 	public User validateUser(String email, String password) throws AuthenticationException {
-		System.out.println("UserServiceImpl.validateUser entered.");
+		logger.debug("validateUser() entered.");
 
 		if (email == null || password == null || email.equals("") || password.equals("")) {
-			System.out.println("UserServiceImpl.validateUser: nulls or blank strings passed.");
+			logger.debug("validateUser(): nulls or blank strings passed.");
 			throw new IllegalArgumentException("Null or empty argument");
 		}
 		User user = null;
 		user = userRepository.findByEmail(email);
 		if (null == user || !user.getPassword().equals(password)) {
-			System.out.println("UserServiceImpl.validateUser: Invalid e-mail or password.");
+			logger.debug("validateUser(): Invalid e-mail or password.");
 			throw new AuthenticationException("Invalid e-mail or password");
 		}
 
-		// TODO change debugging statements to logging
-		System.out.println("UserServiceImpl.validateUser: " + user);
+		logger.debug("validateUser() returning {}.", user);
 		return user;
 	}
 }

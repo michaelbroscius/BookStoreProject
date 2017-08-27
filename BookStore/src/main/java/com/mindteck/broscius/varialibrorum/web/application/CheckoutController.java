@@ -2,6 +2,8 @@ package com.mindteck.broscius.varialibrorum.web.application;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,41 +18,57 @@ import com.mindteck.broscius.varialibrorum.data.entity.User;
 
 @Controller
 public class CheckoutController {
+	private final Logger logger = LoggerFactory.getLogger(CheckoutController.class);
 
 	@Autowired
 	CheckoutService checkoutService;
 	@Autowired
 	ShoppingCartService shoppingCartService;
 
-	@GetMapping(value = {"/checkoutpage", "/checkout.html"})
+	@GetMapping(value = { "/checkoutpage", "/checkout.html" })
 	public String showCheckout(Order order, Model model, HttpSession session) {
+		logger.debug(
+				"Entered showCheckout(Order order, Model model, HttpSession session) for @GetMapping(value = { \"/checkoutpage\", \"/checkout.html\" })");
+		logger.debug("Order: " + order);
+
 		if (!ControllerUtilities.isUserAuthenticated(session)) {
 			session.invalidate();
+			logger.info("An attempt was made to show checkout page while not logged in.");
+			logger.debug("showCheckout() returning \"redirect:/login\".");
 			return "redirect:/login";
 		}
 
 		User user = (User) session.getAttribute("user");
-		System.out.println("\n*****     sent to checkout controller by GET   ****");
-		System.out.println("*****     user: " + user + "     ************************");
+		logger.debug("Logged in user: {}.", user);
 
 		ControllerUtilities.addUserCartToModel(user, model, shoppingCartService);
+
+		logger.debug("Adding new order as model attribute.");
 		model.addAttribute("order", new Order());
 
+		logger.debug("showCheckout() returning \"checkout\".");
 		return "checkout";
 	}
 
 	@PostMapping("/orderconfirmation")
 	public String placeOrder(Order order, BindingResult bindingResult, Model model, HttpSession session) {
+		logger.debug(
+				"Entered placeOrder(Order order, BindingResult bindingResult, Model model, HttpSession session) for @PostMapping(\"/orderconfirmation\").");
+		logger.debug("Order: {}.", order);
+
 		if (!ControllerUtilities.isUserAuthenticated(session)) {
 			session.invalidate();
+			logger.info("An attempt was made to show checkout page while not logged in.");
+			logger.debug("placeOrder() returning \"redirect:/login\".");
 			return "redirect:/login";
 		}
 
 		User user = (User) session.getAttribute("user");
-		System.out.println("\n*****     sent to placeorder controller by GET   ****");
-		System.out.println("*****     user: " + user + "     ************************");
+		logger.debug("Logged in user: {}.", user);
+
 		Order processedOrder = checkoutService.checkout(order, user);
-		System.out.println("CheckoutController.placeOrder: order: " + processedOrder);
+		logger.info("User {}\n placed order {}.", user, order);
+		logger.debug("processed order: {}.", processedOrder);
 
 		return "ordersummary";
 	}
@@ -59,7 +77,7 @@ public class CheckoutController {
 		Order order = checkoutService.getOrderForUser(user);
 		model.addAttribute("order", order);
 
-		System.out.println("ShoppingCartController.addOrderToModel order: " + order);
+		logger.debug("addOrderToModel(): user: {} order: {}", user, order);
 
 		return model;
 	}

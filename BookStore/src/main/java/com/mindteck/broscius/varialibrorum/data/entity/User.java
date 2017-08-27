@@ -86,7 +86,6 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -133,9 +132,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
-				+ "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password==null: " + (password == null)
+				+ ", role=" + role + "]";
 	}
 
-	
 }

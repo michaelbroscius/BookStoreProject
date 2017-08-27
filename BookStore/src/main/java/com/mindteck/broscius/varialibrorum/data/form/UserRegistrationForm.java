@@ -44,5 +44,12 @@ public class UserRegistrationForm {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "UserRegistrationForm [name=" + name + ", email=" + email + ", password==null " + (password==null) + "]";
+	}
+	
+	
+
 	
 }

@@ -2,6 +2,8 @@ package com.mindteck.broscius.varialibrorum.web.application;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,8 @@ import com.mindteck.broscius.varialibrorum.data.form.BookForm;
 
 @Controller
 public class BookManagementController {
+	private final Logger logger = LoggerFactory.getLogger(BookManagementController.class);
+
 	@Autowired
 	BookService bookService;
 
@@ -27,18 +31,21 @@ public class BookManagementController {
 	// TODO implement security
 	@PostMapping("/bookManagement")
 	public String saveBook(@Valid BookForm bookForm, BindingResult bindingResult, Model model) {
+		logger.debug(
+				"saveBook(@Valid BookForm bookForm, BindingResult bindingResult, Model model) for @PostMapping(\"/bookManagement\").");
+		logger.debug("bookForm: {}.", bookForm);
 
 		if (bindingResult.hasErrors()) {
 			return "bookManagement";
 		}
 
 		Book book = bookService.add(bookForm);
-		System.out.println("\n\n*************************************************************************************");
-		System.out.println("************************** Added " + book + "*****************************\n\n");
+		logger.info("A book was added: {}.", book);
 
 		addBooksAndMapsToModel(model);
 		model.addAttribute("authorMap", bookService.getAuthorMap());
 
+		logger.debug("saveBook() returning \"bookManagement\".");
 		return "bookManagement";
 	}
 

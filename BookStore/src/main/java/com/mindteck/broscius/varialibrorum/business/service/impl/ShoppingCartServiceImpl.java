@@ -1,5 +1,7 @@
 package com.mindteck.broscius.varialibrorum.business.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,28 +18,33 @@ import com.mindteck.broscius.varialibrorum.data.repository.UserRepository;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
+	private final Logger logger = LoggerFactory.getLogger(ShoppingCartServiceImpl.class);
 
 	@Autowired
 	ShoppingCartRepository shoppingCartRepository;
+
 	@Autowired
 	CartItemRepository cartItemRepository;
+
 	@Autowired
 	UserRepository userRepository;
+
 	@Autowired
 	ProductRepository productRepository;
 
 	@Transactional
 	@Override
 	public ShoppingCart getShoppingCartForUser(User user) {
-		System.out.println("Entered ShoppingCartServiceImpl.getShoppingCartForUser for user " + user);
+		logger.debug("Entered getShoppingCartForUser({}).", user);
 		ShoppingCart shoppingCart = shoppingCartRepository.findByUser(user);
-		System.out.println("ShoppingCartServiceImpl.getShoppingCartForUser shoppingCartRepository.findByUser returned " + shoppingCart);
+		logger.debug("getShoppingCartForUser shoppingCartRepository.findByUser returned {}.", shoppingCart);
 		if (shoppingCart == null) {
+			logger.debug("Creating new cart.");
 			shoppingCart = new ShoppingCart();
 			shoppingCart.setUser(user);
 			shoppingCartRepository.save(shoppingCart);
 		}
-		System.out.println("ShoppingCartServiceImpl.getShoppingCartForUser( " + user + " returning " + shoppingCart);
+		logger.debug("getShoppingCartForUser({}) returning shoppingCart:{}. ", user, shoppingCart);
 		return shoppingCart;
 	}
 
@@ -60,37 +67,42 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Transactional
 	@Override
 	public ShoppingCart addItemToUserCart(User user, Long productId, Integer quantity) {
+		logger.debug("Entered addItemToUserCart({}, {}, {}.", user, productId, quantity);
 		ShoppingCart shoppingCart = getShoppingCartForUser(user);
 		Product product = productRepository.findOne(productId);
 		CartItem cartItem = new CartItem(product, quantity);
-		
-		System.out.println("ShoppingCartService addItemToUserCart adding: cartItem " + cartItem + "and shoppingCart "
-				+ shoppingCart);
-		addItemToCart(cartItem, shoppingCart);
 
+		logger.info("Added {} to {} for {}.", cartItem, shoppingCart, user);
+
+		addItemToCart(cartItem, shoppingCart);
+		logger.debug("addItemToUserCart() returning {}, {}.", cartItem, shoppingCart);
 		return addItemToCart(cartItem, shoppingCart);
 	}
 
 	@Transactional
 	@Override
 	public ShoppingCart removeItemFromCart(CartItem cartItem, ShoppingCart shoppingCart) {
+		logger.debug("Entered removeItemFromCart({}, {},).", cartItem, shoppingCart);
 		boolean cartChanged = shoppingCart.removeItem(cartItem);
-		if (cartChanged)
+		if (cartChanged) {
 			shoppingCartRepository.save(shoppingCart);
+			logger.info("Removed {} from {} for {}", cartItem, shoppingCart.getCart(), shoppingCart.getUser());
+		}
 
+		logger.debug("removeItemFromCart() returning {}", shoppingCart);
 		return shoppingCart;
 	}
 
 	@Transactional
 	@Override
 	public ShoppingCart clearCart(ShoppingCart shoppingCart) {
-		for(CartItem cartItem : shoppingCart.getCart()) {
+		logger.info("Clearing cart:{}.", shoppingCart);
+		for (CartItem cartItem : shoppingCart.getCart()) {
 			cartItemRepository.delete(cartItem);
 		}
 		shoppingCart.clearCart();
 		shoppingCartRepository.save(shoppingCart);
 		return shoppingCart;
 	}
-
 
 }

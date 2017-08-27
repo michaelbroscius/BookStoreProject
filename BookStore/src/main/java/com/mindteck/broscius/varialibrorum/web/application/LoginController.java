@@ -3,6 +3,8 @@ package com.mindteck.broscius.varialibrorum.web.application;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +21,16 @@ import com.mindteck.broscius.varialibrorum.data.form.LoginForm;
 @RequestMapping(value = "/login")
 public class LoginController {
 
+	private final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
 	@Autowired
 	UserService userService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	// User parameter needed for bean-backed form
 	public String showLoginPage(LoginForm loginForm) {
+		logger.debug("Entered showLoginPage(LoginForm loginForm) where loginForm = {}", loginForm);
+		logger.debug("showLoginPage() returning  \"login\"");
 		return "login";
 	}
 
@@ -32,25 +38,29 @@ public class LoginController {
 	public String validateUser(@Valid LoginForm loginForm, BindingResult bindingResult, Model model,
 			HttpSession session) {
 
+		logger.debug("Entered validateUser(@Valid LoginForm loginForm, BindingResult bindingResult, Model model,\r\n"
+				+ "			HttpSession session) where loginForm = {}", loginForm);
+
 		User user = null;
 
 		if (!bindingResult.hasErrors()) {
-			System.out.println("LoginController.validateUser: no errors in bindingResult.");
+			logger.debug("no errors in bindingResult.");
 			try {
 				if (null != (user = userService.validateUser(loginForm.getEmail(), loginForm.getPassword()))) {
 					session.setAttribute("user", user);
-
-					System.out.println("LoginController.validateUser returning index");
+					logger.info("User {} logged in.", user);
+					logger.debug(" returning \"forward:/index\"");
 					return "forward:/index";
 				}
 			} catch (AuthenticationException e) {
-				System.out.println("LoginController.validateUser caught error");
+				logger.info("Caught error " + e + ": E-mail or password is incorrect. E-mail: {}.",
+						loginForm.getEmail());
 				model.addAttribute("errorMessage", "E-mail or password is incorrect.");
 			}
 		}
-		System.out.println("LoginController.validateUser: " + bindingResult);
+		logger.debug("bindingResult: " + bindingResult);
 
-		System.out.println("LoginController.validateUser returning login");
+		logger.debug("Returning \"login\"");
 		return "login";
 	}
 

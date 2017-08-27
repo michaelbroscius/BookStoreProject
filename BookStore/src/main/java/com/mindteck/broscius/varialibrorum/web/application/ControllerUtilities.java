@@ -2,6 +2,8 @@ package com.mindteck.broscius.varialibrorum.web.application;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 
 import com.mindteck.broscius.varialibrorum.business.service.ShoppingCartService;
@@ -9,21 +11,20 @@ import com.mindteck.broscius.varialibrorum.data.entity.ShoppingCart;
 import com.mindteck.broscius.varialibrorum.data.entity.User;
 
 public class ControllerUtilities {
+	private static final Logger logger = LoggerFactory.getLogger(ControllerUtilities.class);
+
 	public static boolean isUserAuthenticated(HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		System.out.println("\n\n\n*********************************************");
-		System.out.println("isUserAuthenticated: user = " + user);
-		System.out.println("*********************************************\n\n\n");
+		logger.debug("isUserAuthenticated(): user: {}.", user);
 		return user != null;
 	}
 
 	public static Model addUserCartToModel(User user, Model model, ShoppingCartService shoppingCartService) {
-		System.out.println("ControllerUtilities.addUserCartToModel getting shopping cart for User " + user);
+		logger.debug("Entered addUserCartToModel() user: {}. ", user);
 		ShoppingCart shoppingCart = shoppingCartService.getShoppingCartForUser(user);
 		model.addAttribute("shoppingcart", shoppingCart);
 
-		System.out.println(
-				"\n\n ################## ShoppingCartController.addUserCartToModel shoppingCart: " + shoppingCart);
+		logger.debug("addUserCartToModel() shoppingCart: {}.", shoppingCart);
 
 		return model;
 	}

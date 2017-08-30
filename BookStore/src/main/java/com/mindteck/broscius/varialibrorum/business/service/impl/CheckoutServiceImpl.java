@@ -1,5 +1,6 @@
 package com.mindteck.broscius.varialibrorum.business.service.impl;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mindteck.broscius.varialibrorum.business.service.CheckoutService;
+import com.mindteck.broscius.varialibrorum.business.service.ProductService;
 import com.mindteck.broscius.varialibrorum.business.service.ShoppingCartService;
 import com.mindteck.broscius.varialibrorum.data.entity.Order;
 import com.mindteck.broscius.varialibrorum.data.entity.OrderItem;
@@ -27,6 +29,9 @@ public class CheckoutServiceImpl implements CheckoutService {
 
 	@Autowired
 	ShoppingCartService shoppingCartService;
+
+	@Autowired
+	ProductService productService;
 
 	@Autowired
 	ShoppingCartRepository shoppingCartRepository;
@@ -62,6 +67,9 @@ public class CheckoutServiceImpl implements CheckoutService {
 		logger.debug("shoppingCart:{}.", shoppingCart);
 
 		order.setUser(user);
+		order.setDate(LocalDate.now());
+		order = orderRepository.save(order); 	// save order to generate ID
+		order.setOrderNumber(order.obfuscateID());
 		order = fillOrderFromShoppingCart(order, shoppingCart);
 		orderRepository.save(order);
 		shoppingCartService.clearCart(shoppingCart);
@@ -76,6 +84,8 @@ public class CheckoutServiceImpl implements CheckoutService {
 		Set<OrderItem> orderItems = new HashSet<>();
 		shoppingCart.getCart().stream().forEach(cartItem -> {
 			Product product = cartItem.getProduct();
+			//reduce stock of ordered item by ordered amount
+			productService.reduceStock(cartItem.getQuantity(), product);
 			OrderItem orderItem = new OrderItem(product.getId(), product.getPrice(), cartItem.getQuantity(), false);
 			orderItems.add(orderItem);
 		});

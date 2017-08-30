@@ -141,10 +141,16 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 				<table style="border: 1px solid #CCCCCC;"
 					th:unless="${#lists.isEmpty(orders)}">
 					<tr bgcolor="#CCCCCC">
+						<th width="100" align="center">Order Number</th>
+						<th width="100" align="center">Order Date</th>
+						<th width="100" align="center">Billed To</th>
 						<th width="100" align="center">Number of items</th>
 						<th width="100" align="center">Total</th>
 					</tr>
 					<tr th:each="order: ${orders}">
+						<td th:text="${order.orderNumber}">10005</td>
+						<td th:text="${order.date}">2017/10/5</td>
+						<td th:text="${order.billingName}">Joe Smith</td>
 						<td th:text="${order.countItems()}">99</td>
 						<td th:text="${#numbers.formatDecimal(order.calculateTotal(), 0, 'COMMA', 2, 'POINT')}">100</td>
 					</tr>

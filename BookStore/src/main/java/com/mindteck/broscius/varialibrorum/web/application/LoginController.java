@@ -48,7 +48,7 @@ public class LoginController {
 			try {
 				if (null != (user = userService.validateUser(loginForm.getEmail(), loginForm.getPassword()))) {
 					session.setAttribute("user", user);
-					logger.info("User {} logged in.", user);
+					logger.info("User login event for: {}.", user);
 					logger.debug(" returning \"forward:/index\"");
 					return "forward:/index";
 				}

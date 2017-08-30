@@ -1,5 +1,6 @@
 package com.mindteck.broscius.varialibrorum.data.entity;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,11 +24,15 @@ public class Order {
 	@Column(name = "id")
 	private Long id;
 
+	private Long orderNumber;
+
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<OrderItem> items;
 
 	@OneToOne
 	private User user;
+
+	private LocalDate date;
 
 	private String billingName;
 
@@ -50,8 +55,11 @@ public class Order {
 		this.user = user;
 	}
 
-	public Order(User user, String billingName, String phone, String billingEmail, Address address) {
+	public Order(Set<OrderItem> items, User user, LocalDate date, String billingName, String phone, String billingEmail,
+			Address address) {
+		this.items = items;
 		this.user = user;
+		this.date = date;
 		this.billingName = billingName;
 		this.phone = phone;
 		this.billingEmail = billingEmail;
@@ -64,6 +72,18 @@ public class Order {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setOrderNumber(Long orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+
+	public long obfuscateID() {
+		return ((id * 127 + 89) >>> 2) / 3;
 	}
 
 	public Set<OrderItem> getItems() {
@@ -84,6 +104,14 @@ public class Order {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
 	public String getBillingName() {
@@ -135,6 +163,7 @@ public class Order {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((billingEmail == null) ? 0 : billingEmail.hashCode());
 		result = prime * result + ((billingName == null) ? 0 : billingName.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((items == null) ? 0 : items.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
@@ -165,6 +194,11 @@ public class Order {
 				return false;
 		} else if (!billingName.equals(other.billingName))
 			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
 		if (items == null) {
 			if (other.items != null)
 				return false;
@@ -185,8 +219,9 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", items=" + items + ", user=" + user + ", billingName=" + billingName + ", phone="
-				+ phone + ", billingEmail=" + billingEmail + ", billingAddress=" + address + "]";
+		return "Order [id=" + id + ", orderNumber=" + orderNumber + ", items=" + items + ", user=" + user + ", date="
+				+ date + ", billingName=" + billingName + ", phone=" + phone + ", billingEmail=" + billingEmail
+				+ ", address=" + address + "]";
 	}
 
 }

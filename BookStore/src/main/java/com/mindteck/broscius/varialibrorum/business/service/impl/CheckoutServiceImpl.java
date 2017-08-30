@@ -68,7 +68,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
 		order.setUser(user);
 		order.setDate(LocalDate.now());
-		order = orderRepository.save(order); 	// save order to generate ID
+		order = orderRepository.save(order); // save order to generate ID
 		order.setOrderNumber(order.obfuscateID());
 		order = fillOrderFromShoppingCart(order, shoppingCart);
 		orderRepository.save(order);
@@ -84,9 +84,10 @@ public class CheckoutServiceImpl implements CheckoutService {
 		Set<OrderItem> orderItems = new HashSet<>();
 		shoppingCart.getCart().stream().forEach(cartItem -> {
 			Product product = cartItem.getProduct();
-			//reduce stock of ordered item by ordered amount
+			// reduce stock of ordered item by ordered amount
 			productService.reduceStock(cartItem.getQuantity(), product);
-			OrderItem orderItem = new OrderItem(product.getId(), product.getPrice(), cartItem.getQuantity(), false);
+			OrderItem orderItem = new OrderItem(product.getId(), product.getName(), product.getPrice(),
+					cartItem.getQuantity(), false);
 			orderItems.add(orderItem);
 		});
 		order.setItems(orderItems);

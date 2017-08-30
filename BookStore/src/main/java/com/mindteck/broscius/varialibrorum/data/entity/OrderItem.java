@@ -18,6 +18,8 @@ public class OrderItem {
 
 	private Long productId;
 
+	private String name;
+
 	private double price;
 
 	private int quantity;
@@ -26,16 +28,14 @@ public class OrderItem {
 
 	public OrderItem() {
 	}
-	
 
-	public OrderItem(Long productId, double price, int quantity, boolean shipped) {
+	public OrderItem(Long productId, String name, double price, int quantity, boolean shipped) {
 		this.productId = productId;
+		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
 		this.shipped = shipped;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -51,6 +51,14 @@ public class OrderItem {
 
 	public void setProductId(Long productId) {
 		this.productId = productId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public double getPrice() {
@@ -119,8 +127,8 @@ public class OrderItem {
 
 	@Override
 	public String toString() {
-		return "OrderItem [id=" + id + ", productId=" + productId + ", price=" + price + ", quantity=" + quantity
-				+ ", shipped=" + shipped + "]";
+		return "OrderItem [id=" + id + ", productId=" + productId + ", name=" + name + ", price=" + price
+				+ ", quantity=" + quantity + ", shipped=" + shipped + "]";
 	}
 
 }

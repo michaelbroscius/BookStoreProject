@@ -12,7 +12,7 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Product {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 

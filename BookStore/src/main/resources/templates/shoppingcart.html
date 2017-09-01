@@ -139,6 +139,10 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 			</div>
 			<!-- END of sidebar -->
 
+
+			<div id="content" th:if="${#lists.isEmpty(shoppingcart.cart)}">
+				<h3>Your cart is empty.</h3>
+			</div>
 			<div id="content" th:unless="${#lists.isEmpty(shoppingcart.cart)}">
 				<table>
 					<tr bgcolor="#CCCCCC">
@@ -156,13 +160,18 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 							alt="Product 01" th:alt="${cartItem.product.name}" /></td>
 						<td th:text="${cartItem.product.name}">Chicken Little</td>
 						<td align="center"><form th:action="@{/changequantityincart}"
-								 method="post">
-								<input type="hidden" name="itemID" th:value="${cartItem.id}" /> <input type="number"
-									value="1" name="quantity" th:value="${cartItem.quantity}" style="width: 30px; text-align: right" />
-								<button style="margin-top: 5px;" type="submit">Update quantity</button>
+								method="post">
+								<input type="hidden" name="itemID" th:value="${cartItem.id}" />
+								<input type="number" value="1" name="quantity"
+									th:value="${cartItem.quantity}"
+									style="width: 30px; text-align: right" />
+								<button style="margin-top: 5px;" type="submit">Update
+									quantity</button>
 							</form></td>
 						<td th:text="${cartItem.product.price}" align="right">$100</td>
-						<td th:text="${#numbers.formatDecimal(cartItem.calculateTotal(), 0, 'COMMA', 2, 'POINT')}" align="right">$500</td>
+						<td
+							th:text="${#numbers.formatDecimal(cartItem.calculateTotal(), 0, 'COMMA', 2, 'POINT')}"
+							align="right">$500</td>
 						<td align="center"><a href="#"><img
 								src="images/remove_x.gif" alt="remove" /><br />Remove</a></td>
 					</tr>
@@ -174,12 +183,14 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 					</div>
 					<div class="cleaner h20"></div>
 					<div class="continueshopping">
-						<a href="index" class="more">Continue
-							Shopping</a>
+						<a href="index" class="more">Continue Shopping</a>
 					</div>
 
 				</div>
 
+			</div>
+			<div class="continueshopping">
+				<a href="index" class="more">Continue Shopping</a>
 			</div>
 			<div class="cleaner"></div>
 		</div>

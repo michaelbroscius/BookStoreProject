@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class Author {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(name = "lastName")
@@ -41,7 +41,7 @@ public class Author {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	public String getFullName() {
 		return lastName + ", " + firstName;
 	}

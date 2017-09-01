@@ -30,7 +30,7 @@ public class ShoppingCartController {
 	@Autowired
 	ShoppingCartService shoppingCartService;
 
-	@GetMapping("/addtoshoppingcart")
+	@GetMapping({"/addtoshoppingcart", "/checkout.html"}) 
 	public String addToShoppingCart(@ModelAttribute("shoppingcart") ShoppingCart shoppingCart, BindingResult result,
 			@RequestParam(value = "productid", required = false) Long productId, Model model, HttpSession session) {
 		logger.debug(
@@ -45,10 +45,11 @@ public class ShoppingCartController {
 
 		User user = (User) session.getAttribute("user");
 
-		logger.debug("addToShoppingCart() adding item to cart.");
-		shoppingCart = shoppingCartService.addItemToUserCart(user, productId, 1);
-
-		logger.debug("addToShoppingCart() adding user's cart to model. user:{}, cart:{}.", shoppingCart.getUser(),
+		if (productId != null) {
+			logger.debug("addToShoppingCart() adding item to cart.");
+			shoppingCart = shoppingCartService.addItemToUserCart(user, productId, 1);
+		}
+		logger.debug("addToShoppingCart() adding user's cart to model. user:{}, cart:{}.", user,
 				shoppingCart);
 		model.addAttribute("shoppingcart", shoppingCart);
 		logger.debug("addToShoppingCart() returning \"shoppingcart\"");
@@ -74,6 +75,7 @@ public class ShoppingCartController {
 		User user = (User) session.getAttribute("user");
 
 		shoppingCart = shoppingCartService.addQuantityOfItemToUserCart(quantity, cartItemID, user);
+		
 		model.addAttribute("shoppingcart", shoppingCart);
 
 		logger.debug("cart: {}.", shoppingCart);

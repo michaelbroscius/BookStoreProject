@@ -29,7 +29,7 @@ public class CheckoutController {
 	@Autowired
 	ShoppingCartService shoppingCartService;
 
-	@GetMapping(value = { "/checkoutpage", "/checkout.html" })
+	@GetMapping(value = "/checkoutpage")
 	public String showCheckout(Order order, @ModelAttribute("shoppingcart") ShoppingCart shoppingCart, Model model, HttpSession session) {
 		logger.debug(
 				"Entered showCheckout(Order order, Model model, HttpSession session) for @GetMapping(value = { \"/checkoutpage\", \"/checkout.html\" })");

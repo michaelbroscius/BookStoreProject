@@ -46,8 +46,6 @@ public class CheckoutController {
 		User user = (User) session.getAttribute("user");
 		logger.debug("Logged in user: {}.", user);
 
-//		ControllerUtilities.addUserCartToModel(user, model, shoppingCartService);
-
 		logger.debug("Adding new order as model attribute.");
 		model.addAttribute("order", new Order());
 

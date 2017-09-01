@@ -184,7 +184,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 							<td th:text="${cartItem.product.name}">Etiam in tellus</td>
 							<td align="center">1</td>
 							<td th:text="${cartItem.product.price}" align="right">$100</td>
-							<td th:text="${cartItem.calculateTotal()}" align="right">$500</td>
+							<td th:text="${#numbers.formatDecimal(cartItem.calculateTotal(), 0, 'COMMA', 2, 'POINT')}" align="right">$500</td>
 						</tr>
 						<tr>
 							<td width="400px;" style="padding: 0px 20px;"></td>

@@ -162,7 +162,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 								<button style="margin-top: 5px;" type="submit">Update quantity</button>
 							</form></td>
 						<td th:text="${cartItem.product.price}" align="right">$100</td>
-						<td th:text="${cartItem.calculateTotal()}" align="right">$500</td>
+						<td th:text="${#numbers.formatDecimal(cartItem.calculateTotal(), 0, 'COMMA', 2, 'POINT')}" align="right">$500</td>
 						<td align="center"><a href="#"><img
 								src="images/remove_x.gif" alt="remove" /><br />Remove</a></td>
 					</tr>

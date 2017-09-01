@@ -1,5 +1,6 @@
 package com.mindteck.broscius.varialibrorum.web.application;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class UserRegistrationController {
 	}
 
 	@PostMapping("/userRegistration")
-	public String saveUser(@Valid UserRegistrationForm userRegistrationForm, BindingResult bindingResult) {
+	public String saveUser(@Valid UserRegistrationForm userRegistrationForm, BindingResult bindingResult, HttpSession session) {
 		logger.debug("Entered saveUser(@Valid UserRegistrationForm, BindingResult) for @PostMapping(\"/userRegistration\")");
 		logger.debug("userRegistrationForm: {}.", userRegistrationForm);
 
@@ -42,7 +43,7 @@ public class UserRegistrationController {
 		User user = userService.add(userRegistrationForm);
 		logger.info("User registered: {}", user);
 
-		//TODO add welcome message
+		session.setAttribute("registrationmessage", "Your account has been created. Please log in.");
 		logger.debug("saveUser() returning \"redirect:/login\"");
 		return "redirect:/login";
 	}

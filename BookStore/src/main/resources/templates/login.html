@@ -31,7 +31,11 @@ button {
 			<h1>Welcome to Varia Librorum</h1>
 		</div>
 		<fieldset>
-			<legend>Please log in.</legend>
+			<legend th:text="${session.registrationmessage}"
+				th:unless="${session == null}">Account created.</legend>
+			<legend th:if="${session == null}">Please log
+				in.</legend>
+
 			<p class="error" th:text="${errorMessage}"></p>
 			<form action="#" th:action="@{/login}" th:object="${loginForm}"
 				method="post">

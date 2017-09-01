@@ -51,6 +51,9 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 				<h1>
 					Varia Librorum
 				</h1>
+							<div th:unless="${session == null}">
+				Welcome, <span th:text="${session.user.name}">Joe User</span>.
+			</div>
 
 			<div id="header_right">
 				<ul id="language">

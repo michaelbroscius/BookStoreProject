@@ -69,7 +69,28 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 	<div id="templatemo_wrapper">
 		<div id="templatemo_header">
 			<h1>Varia Librorum</h1>
+			<div th:unless="${session == null}">
+				Welcome, <span th:text="${session.user.name}">Joe User</span>.
+			</div>
 		</div>
+					<div id="header_right">
+				<ul id="language">
+					<li><a><img src="images/usa.png" alt="English" /></a></li>
+					<li><a><img src="images/china.png" alt="Chinese" /></a></li>
+					<li><a><img src="images/germany.png" alt="Germany" /></a></li>
+					<li><a><img src="images/india.png" alt="Indian" /></a></li>
+				</ul>
+				<div class="cleaner"></div>
+				<div id="templatemo_search">
+					<form action="#" method="get">
+						<input type="text" value="Search" name="keyword" id="keyword"
+							title="keyword" onfocus="clearText(this)"
+							onblur="clearText(this)" class="txt_field" /> <input
+							type="submit" name="Search" value="" alt="Search"
+							id="searchbutton" title="Search" class="sub_btn" />
+					</form>
+				</div>
+			</div>
 		<!-- END of header -->
 
 		<div id="templatemo_menu" class="ddsmoothmenu">

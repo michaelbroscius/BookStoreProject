@@ -68,12 +68,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 
 	<div id="templatemo_wrapper">
 		<div id="templatemo_header">
-			<div id="site_title">
-				<h1>
-					<a href="#">Varia Librorum</a>
-				</h1>
-			</div>
-
+			<h1>Varia Librorum</h1>
 		</div>
 		<!-- END of header -->
 
@@ -183,11 +178,13 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 
 			<div id="content">
 				<div class="col col_14 product_gallery" th:each="book: ${books}">
-					<a href="productdetail.html"><img width="100px" height="150px" th:src="@{/images/product/__${book.imageFileName}__}"
+					<a href="productdetail.html"><img width="100px" height="150px"
+						th:src="@{/images/product/__${book.imageFileName}__}"
 						alt="Product 01" th:alt="${book.name}" /></a>
 					<h3 th:text="${book.name}">Title</h3>
-					<p class="product_price"  th:text="${book.price}">$ 100</p>
-					<a th:href="@{/addtoshoppingcart(productid=${book.id})}" class="add_to_cart">Add to Cart</a>
+					<p class="product_price" th:text="${book.price}">$ 100</p>
+					<a th:href="@{/addtoshoppingcart(productid=${book.id})}"
+						class="add_to_cart">Add to Cart</a>
 				</div>
 			</div>
 			<!-- END of content -->

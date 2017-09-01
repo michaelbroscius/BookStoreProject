@@ -70,6 +70,7 @@ public class CheckoutController {
 		logger.debug("Logged in user: {}.", user);
 
 		Order processedOrder = checkoutService.checkout(order, user);
+		logger.debug("************************\n\nCart after checking out: {}\n\n******************", getShoppingCart(session));
 		logger.info("User {}\n placed order {}.", user, order);
 		logger.debug("processed order: {}.", processedOrder);
 

@@ -97,6 +97,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Override
 	public ShoppingCart addQuantityOfItemToUserCart(int quantity, Long cartID, User user) {
 		CartItem cartItem = cartItemRepository.findOne(cartID);
+		if (cartItem == null) {
+			logger.error("addQuantitityOfItemToUserCart(): no cart with ID: {}.", cartID);
+			throw new IllegalArgumentException("No cart with ID: " + cartID);
+		}
 		cartItem.setQuantity(quantity);
 		return addItemToUserCart(cartItem, user);
 	}

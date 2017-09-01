@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class ShoppingCart {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
@@ -82,7 +82,7 @@ public class ShoppingCart {
 	public void clearCart() {
 		cart = new HashSet<>();
 	}
-	
+
 	public boolean isEmpty() {
 		return cart.isEmpty();
 	}

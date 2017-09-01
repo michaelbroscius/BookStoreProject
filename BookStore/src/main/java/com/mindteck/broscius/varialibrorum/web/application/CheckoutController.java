@@ -9,14 +9,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.mindteck.broscius.varialibrorum.business.service.CheckoutService;
 import com.mindteck.broscius.varialibrorum.business.service.ShoppingCartService;
 import com.mindteck.broscius.varialibrorum.data.entity.Order;
+import com.mindteck.broscius.varialibrorum.data.entity.ShoppingCart;
 import com.mindteck.broscius.varialibrorum.data.entity.User;
 
 @Controller
+@SessionAttributes("shoppingcart" )
 public class CheckoutController {
 	private final Logger logger = LoggerFactory.getLogger(CheckoutController.class);
 
@@ -26,10 +30,11 @@ public class CheckoutController {
 	ShoppingCartService shoppingCartService;
 
 	@GetMapping(value = { "/checkoutpage", "/checkout.html" })
-	public String showCheckout(Order order, Model model, HttpSession session) {
+	public String showCheckout(Order order, @ModelAttribute("shoppingcart") ShoppingCart shoppingCart, Model model, HttpSession session) {
 		logger.debug(
 				"Entered showCheckout(Order order, Model model, HttpSession session) for @GetMapping(value = { \"/checkoutpage\", \"/checkout.html\" })");
-		logger.debug("Order: " + order);
+		logger.debug("Order: {}.", order);
+		logger.debug("ShoppingCart: {}.", shoppingCart);
 
 		if (!ControllerUtilities.isUserAuthenticated(session)) {
 			session.invalidate();
@@ -41,7 +46,7 @@ public class CheckoutController {
 		User user = (User) session.getAttribute("user");
 		logger.debug("Logged in user: {}.", user);
 
-		ControllerUtilities.addUserCartToModel(user, model, shoppingCartService);
+//		ControllerUtilities.addUserCartToModel(user, model, shoppingCartService);
 
 		logger.debug("Adding new order as model attribute.");
 		model.addAttribute("order", new Order());
@@ -80,6 +85,16 @@ public class CheckoutController {
 		logger.debug("addOrderToModel(): user: {} order: {}", user, order);
 
 		return model;
+	}
+	
+	@ModelAttribute("shoppingcart")
+	public ShoppingCart getShoppingCart(HttpSession session) {
+		logger.debug("Entered getShoppingCart()");
+		User user = (User) session.getAttribute("user");
+		ShoppingCart shoppingCart = shoppingCartService.getShoppingCartForUser(user);
+
+		logger.debug("getShoppingCart(): user is {}. Returning shoppingCart: {}.", user, shoppingCart);
+		return shoppingCart;
 	}
 
 }

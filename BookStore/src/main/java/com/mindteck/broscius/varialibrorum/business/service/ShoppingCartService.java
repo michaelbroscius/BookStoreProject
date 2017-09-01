@@ -15,6 +15,8 @@ public interface ShoppingCartService {
 
 	ShoppingCart getShoppingCart(Long id);
 
+	ShoppingCart saveCart(ShoppingCart shoppingCart);
+
 	/**
 	 * Ensure cartItem is in shoppingCart. If it was added, persists shoppingCart.
 	 * 
@@ -23,7 +25,7 @@ public interface ShoppingCartService {
 	 * @return
 	 */
 	ShoppingCart addItemToCart(CartItem cartItem, ShoppingCart shoppingCart);
-	
+
 	/**
 	 * 
 	 * @param user
@@ -32,6 +34,10 @@ public interface ShoppingCartService {
 	 * @return adds cartItem to shoppingCart for corresponding user
 	 */
 	ShoppingCart addItemToUserCart(User user, Long productId, Integer quantity);
+
+	ShoppingCart addItemToUserCart(CartItem cartItem, User user);
+
+	ShoppingCart addQuantityOfItemToUserCart(int quantity, Long cartID, User user);
 
 	ShoppingCart removeItemFromCart(CartItem cartItem, ShoppingCart shoppingCart);
 

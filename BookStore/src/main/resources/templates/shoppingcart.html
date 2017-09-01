@@ -151,12 +151,18 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 
 					</tr>
 					<tr th:each="cartItem: ${shoppingcart.cart}">
-						<td><img width="200px" height="300px" th:src="@{/images/product/__${cartItem.product.imageFileName}__}" alt="Product 01" th:alt="${cartItem.product.name}" /></td>
-						<td th:text="${cartItem.product.name}">Etiam in tellus</td>
-						<td align="center"><input type="text" value="1"
-							style="width: 20px; text-align: right" /></td>
-						<td th:text="${cartItem.product.price}">align="right">$100</td>
-						<td align="right">$500</td>
+						<td><img width="200px" height="300px"
+							th:src="@{/images/product/__${cartItem.product.imageFileName}__}"
+							alt="Product 01" th:alt="${cartItem.product.name}" /></td>
+						<td th:text="${cartItem.product.name}">Chicken Little</td>
+						<td align="center"><form th:action="@{/changequantityincart}"
+								 method="post">
+								<input type="hidden" name="itemID" th:value="${cartItem.id}" /> <input type="number"
+									value="1" name="quantity" th:value="${cartItem.quantity}" style="width: 30px; text-align: right" />
+								<button style="margin-top: 5px;" type="submit">Update quantity</button>
+							</form></td>
+						<td th:text="${cartItem.product.price}" align="right">$100</td>
+						<td th:text="${cartItem.calculateTotal()}" align="right">$500</td>
 						<td align="center"><a href="#"><img
 								src="images/remove_x.gif" alt="remove" /><br />Remove</a></td>
 					</tr>
@@ -168,7 +174,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 					</div>
 					<div class="cleaner h20"></div>
 					<div class="continueshopping">
-						<a href="javascript:history.back()" class="more">Continue
+						<a href="index" class="more">Continue
 							Shopping</a>
 					</div>
 

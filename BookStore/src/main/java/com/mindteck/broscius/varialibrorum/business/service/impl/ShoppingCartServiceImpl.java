@@ -37,7 +37,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	public ShoppingCart getShoppingCartForUser(User user) {
 		logger.debug("Entered getShoppingCartForUser({}).", user);
 		ShoppingCart shoppingCart = shoppingCartRepository.findByUser(user);
-		logger.debug("getShoppingCartForUser shoppingCartRepository.findByUser returned {}.", shoppingCart);
+		logger.debug("getShoppingCartForUser shoppingCartRepository.findByUser() returned {}.", shoppingCart);
 		if (shoppingCart == null) {
 			logger.debug("Creating new cart.");
 			shoppingCart = new ShoppingCart();
@@ -70,13 +70,35 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		logger.debug("Entered addItemToUserCart({}, {}, {}.", user, productId, quantity);
 		ShoppingCart shoppingCart = getShoppingCartForUser(user);
 		Product product = productRepository.findOne(productId);
-		CartItem cartItem = new CartItem(product, quantity);
+		CartItem cartItem = cartItemRepository.findByProduct(product);
+		logger.debug("cartItem:{}.", cartItem);
+		if (cartItem == null) {
+			logger.debug("Creating new cartItem for: {}, quantity: {}.", product, quantity);
+			cartItem = new CartItem(product, quantity);
+		}
 
 		logger.info("Added {} to {} for {}.", cartItem, shoppingCart, user);
 
 		addItemToCart(cartItem, shoppingCart);
 		logger.debug("addItemToUserCart() returning {}, {}.", cartItem, shoppingCart);
 		return addItemToCart(cartItem, shoppingCart);
+	}
+
+	@Transactional
+	@Override
+	public ShoppingCart addItemToUserCart(CartItem cartItem, User user) {
+		logger.debug("Entered addItemToUserCart(User {}, CartItem {})", user, cartItem);
+		ShoppingCart shoppingCart = getShoppingCartForUser(user);
+		shoppingCart = addItemToCart(cartItem, shoppingCart);
+		return shoppingCart;
+	}
+
+	@Transactional
+	@Override
+	public ShoppingCart addQuantityOfItemToUserCart(int quantity, Long cartID, User user) {
+		CartItem cartItem = cartItemRepository.findOne(cartID);
+		cartItem.setQuantity(quantity);
+		return addItemToUserCart(cartItem, user);
 	}
 
 	@Transactional
@@ -103,6 +125,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		shoppingCart.clearCart();
 		shoppingCartRepository.save(shoppingCart);
 		return shoppingCart;
+	}
+
+	@Transactional
+	@Override
+	public ShoppingCart saveCart(ShoppingCart shoppingCart) {
+
+		return shoppingCartRepository.save(shoppingCart);
 	}
 
 }

@@ -187,7 +187,7 @@ http://www.templatemo.com/preview/templatemo_341_web_store
 						alt="Product 01" th:alt="${book.name}" /></a>
 					<h3 th:text="${book.name}">Title</h3>
 					<p class="product_price"  th:text="${book.price}">$ 100</p>
-					<a th:href="@{/addtoshoppingcart(id=${book.id})}" class="add_to_cart">Add to Cart</a>
+					<a th:href="@{/addtoshoppingcart(productid=${book.id})}" class="add_to_cart">Add to Cart</a>
 				</div>
 			</div>
 			<!-- END of content -->

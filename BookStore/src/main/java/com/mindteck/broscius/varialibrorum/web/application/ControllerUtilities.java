@@ -4,10 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ui.Model;
 
-import com.mindteck.broscius.varialibrorum.business.service.ShoppingCartService;
-import com.mindteck.broscius.varialibrorum.data.entity.ShoppingCart;
 import com.mindteck.broscius.varialibrorum.data.entity.User;
 
 public class ControllerUtilities {
@@ -19,14 +16,15 @@ public class ControllerUtilities {
 		return user != null;
 	}
 
-	public static Model addUserCartToModel(User user, Model model, ShoppingCartService shoppingCartService) {
-		logger.debug("Entered addUserCartToModel() user: {}. ", user);
-		ShoppingCart shoppingCart = shoppingCartService.getShoppingCartForUser(user);
-		model.addAttribute("shoppingcart", shoppingCart);
-
-		logger.debug("addUserCartToModel() shoppingCart: {}.", shoppingCart);
-
-		return model;
-	}
+	// public static Model addUserCartToModel(User user, Model model,
+	// ShoppingCartService shoppingCartService) {
+	// logger.debug("Entered addUserCartToModel() user: {}. ", user);
+	// ShoppingCart shoppingCart = shoppingCartService.getShoppingCartForUser(user);
+	// model.addAttribute("shoppingcart", shoppingCart);
+	//
+	// logger.debug("addUserCartToModel() shoppingCart: {}.", shoppingCart);
+	//
+	// return model;
+	// }
 
 }
